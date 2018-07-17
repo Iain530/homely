@@ -12,7 +12,15 @@
     <link rel="stylesheet" href="css/svg-icons.css">
     <link rel="stylesheet" href="css/newtab.css">
 
-    <script type="text/javascript" src="newtab.js"></script>
+    <!-- React -->
+    <script type="text/javascript" src="js/react.min.js"></script>
+    <script type="text/javascript" src="js/react-dom.min.js"></script>
+    <script type="text/javascript" src="js/babel.min.js"></script>
+
+    <!-- Components -->
+    <script type="text/babel" src="components/box-link.jsx"></script>
+
+    <script type="text/jsx" src="newtab.js"></script>
 </head>
 
 <body>
@@ -93,20 +101,19 @@
                     <div class="blur-background"></div>
                     <div class="blur-color light"></div>
 
-                    <div class="blur-content">
-                        <h3>Social media</h3>
-                        <div class="box-link">
-                            Facebook
-                        </div>
-                        <div class="box-link">
-                            Youtube
-                        </div>
+                    <div class="blur-content" id="here2">
                     </div>
                 </div>
             </div>
         </div>
 
     </div>
+
+    <script type="text/babel">
+        const link = <BoxLink title="Test" url="https://www.google.com" />;
+        ReactDOM.render(link, document.getElementById('here2'));
+        console.log('done');
+    </script>
 </body>
 
 </html>
