@@ -1,0 +1,24 @@
+{
+
+    "manifest_version": 2,
+    "name": "Homely",
+    "version": "1.0",
+
+    "description": "Customised home page.",
+
+    "icons": {
+        "48": "icons/border-48.png"
+    },
+
+    "permissions": [
+        "bookmarks"
+    ],
+
+    "chrome_url_overrides": {
+        "newtab": "newtab.html"
+    },
+
+    "background": {
+        "scripts": ["background.js"]
+    }
+}

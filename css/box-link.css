@@ -1,0 +1,38 @@
+.box-link {
+    position: relative;
+    border: 1px solid rgba(50, 50, 50, 0.4);
+    padding: 0.25rem 0.375rem;
+    margin-top: 0.25rem;
+    border-radius: 0.125rem;
+    transition: 0.2s;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 20px auto;
+}
+
+.box-link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 0px 4px rgba(50, 50, 50, 0.4);
+}
+
+.box-link:active:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.box-link>* {
+    display: inline-grid;
+}
+
+.box-link img {
+    margin: auto;
+}
+
+.box-link div {
+    padding-left: 0.25rem;
+    font-size: 0.875rem;
+}
+
+a.remove-style {
+    text-decoration: none;
+    color: inherit;
+}

@@ -1,0 +1,38 @@
+.search-bar {
+    margin-bottom: 2rem;
+}
+
+.search-bar input, .search-bar button {
+    /* display: inline-block; */
+    background: transparent;
+    border: none;
+    height: 100%;
+    font-size: 1.5rem;
+}
+
+.search-bar input[type="search"] {
+    padding: 0.5rem 3rem 0.5rem 1rem;
+    width: 100%;
+}
+
+.search-bar button {
+    position: absolute;
+    right: 0;
+    width: 3rem;
+    cursor: pointer;
+}
+
+::placeholder, .search-bar button svg {
+    opacity: 0.6;
+    color: #333;
+    fill: #333;
+}
+
+.search-bar button svg {
+    position: absolute;
+    margin: auto;
+    right: 0;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
