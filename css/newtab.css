@@ -4,7 +4,7 @@
 
 body, input, button {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    color: #222;
+    color: rgb(218, 218, 218);
 }
 
 html, body {
@@ -15,11 +15,11 @@ html, body {
 body {
     height: 100%;
     width: 100%;
-    background-color: #ddd;
+    background-color: #fff;
 }
 
 .page-bg {
-    background: url('https://source.unsplash.com/featured/?sky,nature,water,stars,city&dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg=') no-repeat center center fixed;
+    background: url('https://source.unsplash.com/featured/1920x1080?sky,nature,stars,water') no-repeat center center fixed;
     background-size: cover;
     position: fixed;
     width: 100%;
@@ -42,19 +42,25 @@ body {
 
 h1, h2 {
     margin: 0;
+    font-weight: lighter;
 }
 
 h3, h4, h5 {
     margin: 0 0 0.5rem 0;
-    border-bottom: 1px solid rgba(50, 50, 50, 0.3);
+    border-bottom: 1px solid rgb(218, 218, 218, 0.5);
     padding-bottom: 0.125rem;
+    font-weight: lighter;
 }
 
 .page-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
     padding: 3rem 0.5rem;
     width: 95%;
     max-width: 40rem;
-    min-width: 25rem;
+    min-width: 20rem;
     margin: auto;
     animation-name: fadeIn;
     animation-iteration-count: 1;

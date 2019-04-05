@@ -11,7 +11,10 @@
     },
 
     "permissions": [
-        "bookmarks"
+        "bookmarks",
+        "search",
+        "topSites",
+        "tabs"
     ],
 
     "chrome_url_overrides": {

@@ -3,8 +3,9 @@
     overflow: hidden;
 }
 
+/* https://source.unsplash.com/featured/1920x1080?sky&dpr=2&auto=format&fit=crop&w=1920&h=1080&q=80&cs=tinysrgb&crop=&bg= */
 .blur-background {
-    background: url('https://source.unsplash.com/featured/?sky,nature,water,stars,city&dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg=') no-repeat center center fixed;
+    background: url('https://source.unsplash.com/featured/1920x1080?sky,nature,stars,water') no-repeat center center fixed;
     background-size: cover;
     overflow: hidden;
     filter: brightness(1.5) blur(12px);
@@ -25,8 +26,8 @@
 }
 
 .blur-color.light {
-    background-color: white;
-    opacity: 0.4;
+    background-color: #666;
+    opacity: 0.5;
 }
 
 .blur-content {

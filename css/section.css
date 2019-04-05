@@ -1,7 +1,9 @@
 .section {
+    position: relative;
     margin: 1rem 0;
-    border-radius: 0.5rem;
-    overflow: hidden;
+    border-radius: 0.15rem;
+    /* overflow: hidden; */
+    border: 1px solid #dadada36;
 }
 
 .section.close-bottom {
@@ -13,11 +15,11 @@
 }
 
 .shadow {
-    box-shadow: 0px 1px 2px rgba(50, 50, 50, 0.6);
+    /* box-shadow: 0px 1px 2px rgba(50, 50, 50, 0.6); */
     transition: 0.2s;
 }
 
-.shadow:focus-within, .shadow:hover {
+.shadow:focus-within {
     box-shadow: 0px 3px 5px rgba(50, 50, 50, 0.6);
 }
 
