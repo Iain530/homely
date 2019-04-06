@@ -1,5 +1,6 @@
 import Search from './js/Search.js';
 import TopSites from './js/TopSites.js';
+import Clock from './js/Clock.js';
 
 const TAB = 9;
 
@@ -11,12 +12,10 @@ const loadContent = async () => {
 
     const search = new Search();
     const topSites = new TopSites();
+    const clock = new Clock();
+    clock.start();
 
     await Promise.all([search.initialised, topSites.initialised]);
-    console.log(search.suggestEngine('g'));
-
-
-
 
     // const bookmarks_api = browser.bookmarks;
 

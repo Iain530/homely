@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg2"
+   viewBox="0 0 2899 1906"
+   style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+   height="19.1703mm"
+   width="29.1524mm"
+   xml:space="preserve"><metadata
+   id="metadata18"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title><cc:license
+         rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" /></cc:Work><cc:License
+       rdf:about="http://creativecommons.org/licenses/by-nc-sa/3.0/"><cc:permits
+         rdf:resource="http://creativecommons.org/ns#Reproduction" /><cc:permits
+         rdf:resource="http://creativecommons.org/ns#Distribution" /><cc:requires
+         rdf:resource="http://creativecommons.org/ns#Notice" /><cc:requires
+         rdf:resource="http://creativecommons.org/ns#Attribution" /><cc:prohibits
+         rdf:resource="http://creativecommons.org/ns#CommercialUse" /><cc:permits
+         rdf:resource="http://creativecommons.org/ns#DerivativeWorks" /><cc:requires
+         rdf:resource="http://creativecommons.org/ns#ShareAlike" /></cc:License></rdf:RDF></metadata>
+ <defs
+   id="defs4">
+  <style
+   id="style6"
+   type="text/css">
+   <![CDATA[
+    .str0 {stroke:#D9DADA;stroke-width:7.57655}
+    .fil0 {fill:#2A2A29}
+    .fil1 {fill:#2A2A29;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ <g
+   id="Layer_x0020_1">
+  <metadata
+   id="CorelCorpID_0Corel-Layer" />
+  <path
+   id="path10"
+   d="M2537 195c57,0 101,20 135,61l115 -114c13,-12 19,-27 19,-43 0,-31 -21,-54 -64,-68 -9,-3 -23,-5 -43,-5l-2272 0 -228 0c-53,0 -95,16 -126,48 -31,32 -47,74 -47,125l0 1507c0,63 20,94 62,94 20,0 38,-8 54,-23l104 -107c-19,-12 -32,-27 -40,-42 -8,-16 -12,-43 -12,-80l0 -1120 0 -68c0,-109 53,-164 159,-164l69 0 2114 0zm162 -191c3,0 9,1 18,2 9,2 16,2 20,2 45,9 83,31 112,68 30,36 45,77 45,124l0 1507c0,53 -19,99 -57,138 -38,38 -82,58 -135,58l-2272 0 -232 0c-54,0 -99,-19 -138,-58 -38,-39 -58,-85 -58,-138l0 -1507c0,-54 19,-99 58,-138 39,-38 85,-58 138,-58l2272 0 228 0zm-162 209l-2110 0c-60,0 -111,20 -152,62 -41,41 -62,92 -62,152l0 1120c0,45 16,82 48,112 30,22 63,34 98,34l2179 0c40,0 74,-14 104,-43 29,-29 44,-63 44,-102l0 -1188c0,-32 -9,-62 -27,-89 -30,-38 -71,-57 -121,-57z"
+   class="fil0 str0" />
+  <polygon
+   id="polygon12"
+   points="681,659 474,659 474,560 994,560 994,659 787,659 787,1426 681,1426 "
+   class="fil1" />
+  <path
+   d="M1536 887l104 0 0 539 -104 0 0 -87c-50,71 -112,106 -186,106 -38,0 -73,-7 -105,-22 -31,-14 -59,-35 -82,-61 -23,-26 -41,-57 -53,-93 -12,-35 -19,-74 -19,-114 0,-58 12,-108 36,-151 24,-43 56,-75 96,-98 40,-22 82,-33 126,-33 20,0 41,4 64,11 23,7 45,19 67,36 22,16 40,37 55,63l0 -95zm5 266c0,-50 -15,-93 -45,-131 -30,-37 -72,-57 -127,-58 -28,0 -55,7 -82,22 -27,15 -49,37 -66,65 -17,29 -26,63 -26,103 0,39 8,74 24,104 16,30 37,54 62,70 26,16 53,24 80,24 52,-1 96,-19 129,-55 33,-36 50,-85 50,-146z"
+   class="fil1"
+   id="1" />
+  <path
+   d="M1834 1426l0 -998 104 0 0 554c46,-71 108,-107 186,-110 42,0 83,10 122,31 39,21 71,52 96,94 25,42 38,92 40,151 0,52 -8,97 -24,135 -16,38 -36,69 -62,93 -25,24 -52,41 -81,52 -29,11 -56,16 -82,16 -50,0 -89,-9 -115,-27 -26,-18 -53,-44 -79,-79l0 87 -104 0zm443 -273c0,-32 -7,-62 -20,-91 -13,-28 -33,-52 -59,-70 -26,-18 -58,-27 -96,-28 -29,0 -57,8 -83,23 -26,16 -47,38 -63,66 -16,29 -24,62 -24,101 0,28 5,57 16,87 11,31 29,56 55,78 26,21 59,32 100,32 31,0 60,-7 86,-22 26,-15 47,-38 63,-68 16,-30 23,-67 23,-110z"
+   class="fil1"
+   id="12" />
+ </g>
+</svg>

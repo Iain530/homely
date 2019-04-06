@@ -1,7 +1,19 @@
+import Autocomplete from './Autocomplete.js';
+import Dropdown from './Dropdown.js';
+
 const api = browser.search;
 const BACKSPACE = 8;
 const TAB = 9;
 const ENTER = 13;
+const ARROWUP = 38;
+const ARROWDOWN = 40;
+
+const SUGGESTIONS_URL = 'https://api.datamuse.com/sug';
+const getSearchSuggestionUrl = (query) => {
+    const url = new URL(SUGGESTIONS_URL);
+    url.searchParams.set('s', query);
+    return url;
+};
 
 // Example usage:
 // <div class="search-bar">
@@ -25,13 +37,18 @@ export default class Search {
         this.defaultEngine = null;
         this.focussed = false;
         this.suggested = null;
-
+        
         // elements
         this.searchIconElement = null;
         this.searchEngineNameElement = null;
         this.searchBoxElement = null;
         this.searchSubmitButtonElement = null;
         this.dropDownElement = null;
+        this.dropDownContainer = null;
+        this.autocompleteElement = null;
+
+        this.autocomplete = null;
+        this.dropdown = null;
 
         this.initialised = this.init();
     }
@@ -42,6 +59,13 @@ export default class Search {
         this.searchBoxElement = document.getElementById('search');
         this.searchSubmitButtonElement = document.getElementById('search-submit');
         this.dropDownElement = document.getElementById('search-dropdown');
+        this.dropDownContainer = document.getElementById('search-dropdown-container');
+        this.autocompleteElement = document.getElementById('search-autocomplete');
+
+        this.autocomplete = new Autocomplete(this.searchBoxElement,
+                                             (completions, query) => this.onCompletionsReturn(completions, query),
+                                             250);
+        this.dropdown = new Dropdown(this.dropDownContainer);
 
         document.addEventListener('click', () => {
             if (!this.focussed) {
@@ -51,13 +75,13 @@ export default class Search {
         });
 
         const engines = await api.get();
-        if (engines.length === 0)
-            throw new Error('No search engines');
-        this.defaultEngine = engines.find(e => e.isDefault);
-        if (this.defaultEngine === undefined)
-            throw new Error('No default engine');
-        this.setCurrentEngine(this.defaultEngine);
+        if (engines.length === 0) throw new Error('No search engines');
+        const defaultEngine = engines.find(e => e.isDefault);
+        if (defaultEngine === undefined) throw new Error('No default engine');
+
         this.engines = engines.filter(e => !e.isDefault);
+        this.defaultEngine = defaultEngine;
+        this.setCurrentEngine(defaultEngine);
 
         this.searchSubmitButtonElement.addEventListener('focus', () => {
             this.searchBoxElement.focus();
@@ -70,13 +94,18 @@ export default class Search {
         this.searchBoxElement.addEventListener('keydown', (e) => {
             switch (e.keyCode) {
                 case BACKSPACE:
-                    if (this.searchBoxElement.value === '') {
+                    if (this.searchBoxElement.value === '')
                         this.setCurrentEngine(this.defaultEngine);
-                    }
                     break;
+                case ARROWUP:
+                    this.dropdown.moveSelectionUp();
+                    this.setCursorToEnd();
+                    return false; // don't update dropdown
+                case ARROWDOWN:
+                    this.dropdown.moveSelectionDown();
+                    return false; // don't update dropdown
                 case TAB:
-                    if (this.suggested !== null)
-                        this.setCurrentEngine(this.suggested);
+                    this.dropdown.acceptCurrentSelection();
                     break;
                 case ENTER:
                     this.search(this.searchBoxElement.value);
@@ -85,19 +114,53 @@ export default class Search {
             return false;
         });
 
-        this.searchBoxElement.addEventListener('input', () => {
-            this.suggested = this.suggestEngine(this.searchBoxElement.value);
-            this.updateDropDown();
-        });
+        this.searchBoxElement.addEventListener('input', () => this.onInput());
+        this.searchBoxElement.addEventListener('change', () => this.onInput());
     };
 
+    onInput() {
+        this.suggested = this.suggestEngine(this.searchBoxElement.value);
+        this.updateDropDown();
+    }
+
+    setCursorToEnd() {
+        // hacky: set the cursor to the end of search box after 1ms
+        // to avoid doing it too early
+        const input = this.searchBoxElement;
+        setTimeout(() => {
+            input.selectionStart = input.selectionEnd = input.value.length
+        }, 1);
+    }
+
+    onCompletionsReturn(completions, query) {
+        this.completions = completions;
+        this.completionsQuery = query;
+        this.updateDropDown();
+    }
+
     updateDropDown() {
-        let content = '';
+        const rows = [];
         if (this.suggested !== null) {
-            content = `Search on ${this.suggested.name}`;
+            rows.push({
+                content: `Search on ${this.suggested.name}`,
+                onSelect: () => this.setCurrentEngine(this.suggested),
+            });
         }
-        this.dropDownElement.innerHTML = content;
+
+        const currentQuery = this.searchBoxElement.value;
+        if (currentQuery !== '' && this.completions) {
+            this.completions.forEach((suggestion) => {
+                rows.push({
+                    content: suggestion.word,
+                    onSelect: () => {this.searchBoxElement.value = suggestion.word},
+                });
+            });
+        }
+        
+        this.dropdown.setRows(rows);
+        this.dropdown.update();
     };
+
 
     async search(query) {
         const tabId = (await browser.tabs.getCurrent()).id;
@@ -134,18 +197,3 @@ export default class Search {
         return suggested || null;
     };
 }
-
-// const searchIcon = document.getElementById('search-icon');
-// searchIcon.src = search.currentEngine.favIconUrl;
-
-// const searchBox = document.getElementById('search');
-// searchBox.addEventListener('keydown', (e) => {
-//     const suggested = search.suggestEngine(searchBox.value);
-//     if (e.keyCode == TAB && suggested !== null) {
-//         searchBox.value = suggested.name;
-//         searchIcon.src = suggested.favIconUrl;
-//         return false;
-//     }
-// });
-
-// give focus back to search

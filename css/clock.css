@@ -1,0 +1,18 @@
+.clock {
+    border: none;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-shadow: 0px 0px 1rem #333;
+    overflow: visible;
+}
+
+.clock #time {
+    font-size: 8rem;
+    color: white;
+}
+
+.clock #date {
+    font-size: 2rem;
+    color: white;
+}

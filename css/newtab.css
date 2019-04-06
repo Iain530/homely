@@ -15,11 +15,40 @@ html, body {
 body {
     height: 100%;
     width: 100%;
-    background-color: #fff;
+    background-color: #333;
+}
+
+@media screen
+and (max-device-width: 1280px) {
+    .page-bg {
+        background: url('https://source.unsplash.com/collection/827743/1280x720/daily') no-repeat center center fixed;
+    }
+}
+
+
+@media screen
+and (min-device-width: 1281px) {
+    .page-bg {
+        background: url('https://source.unsplash.com/collection/827743/1920x1080/daily') no-repeat center center fixed;
+    }
+}
+
+@media screen
+and (min-device-width: 1921px) {
+    .page-bg {
+        background: url('https://source.unsplash.com/collection/827743/2560x1440/daily') no-repeat center center fixed;
+    }
+}
+
+
+@media screen
+and (min-device-width: 2561px) {
+    .page-bg {
+        background: url('https://source.unsplash.com/collection/827743/3840x2160/daily') no-repeat center center fixed;
+    }
 }
 
 .page-bg {
-    background: url('https://source.unsplash.com/featured/1920x1080?sky,nature,stars,water') no-repeat center center fixed;
     background-size: cover;
     position: fixed;
     width: 100%;
@@ -53,9 +82,10 @@ h3, h4, h5 {
 }
 
 .page-body {
+    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     height: 100vh;
     padding: 3rem 0.5rem;
     width: 95%;

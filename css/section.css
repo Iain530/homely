@@ -2,8 +2,8 @@
     position: relative;
     margin: 1rem 0;
     border-radius: 0.15rem;
-    /* overflow: hidden; */
-    border: 1px solid #dadada36;
+    overflow: hidden;
+    border: 2px solid #dadada36;
 }
 
 .section.close-bottom {
@@ -20,7 +20,7 @@
 }
 
 .shadow:focus-within {
-    box-shadow: 0px 3px 5px rgba(50, 50, 50, 0.6);
+    box-shadow: 0px 1px 5px rgba(50, 50, 50, 0.6);
 }
 
 .grid {

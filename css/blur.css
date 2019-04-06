@@ -3,15 +3,45 @@
     overflow: hidden;
 }
 
+@media screen
+and (max-device-width: 1280px) {
+    .blur-background {
+        background: url('https://source.unsplash.com/collection/827743/1280x720/daily') no-repeat center center fixed;
+    }
+}
+
+
+@media screen
+and (min-device-width: 1281px) {
+    .blur-background {
+        background: url('https://source.unsplash.com/collection/827743/1920x1080/daily') no-repeat center center fixed;
+    }
+}
+
+@media screen
+and (min-device-width: 1921px) {
+    .blur-background {
+        background: url('https://source.unsplash.com/collection/827743/2560x1440/daily') no-repeat center center fixed;
+    }
+}
+
+
+@media screen
+and (min-device-width: 2561px) {
+    .blur-background {
+        background: url('https://source.unsplash.com/collection/827743/3840x2160/daily') no-repeat center center fixed;
+    }
+}
+
+
 /* https://source.unsplash.com/featured/1920x1080?sky&dpr=2&auto=format&fit=crop&w=1920&h=1080&q=80&cs=tinysrgb&crop=&bg= */
 .blur-background {
-    background: url('https://source.unsplash.com/featured/1920x1080?sky,nature,stars,water') no-repeat center center fixed;
+    /* background: url('https://source.unsplash.com/collection/827743/1920x1080/daily') no-repeat center center fixed; */
     background-size: cover;
     overflow: hidden;
     filter: brightness(1.5) blur(12px);
     position: absolute;
     z-index: 1;
-    height: 300%;
     top: -50px;
     left: -50px;
     right: -50px;
