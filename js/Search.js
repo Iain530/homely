@@ -35,7 +35,6 @@ export default class Search {
         this.engines = null;
         this.currentEngine = null;
         this.defaultEngine = null;
-        this.focussed = false;
         this.suggested = null;
         
         // elements
@@ -60,19 +59,14 @@ export default class Search {
         this.searchSubmitButtonElement = document.getElementById('search-submit');
         this.dropDownElement = document.getElementById('search-dropdown');
         this.dropDownContainer = document.getElementById('search-dropdown-container');
-        this.autocompleteElement = document.getElementById('search-autocomplete');
+        this.autocompleteElement = document.getElementById('autocomplete-input');
 
         this.autocomplete = new Autocomplete(this.searchBoxElement,
                                              (completions, query) => this.onCompletionsReturn(completions, query),
-                                             250);
-        this.dropdown = new Dropdown(this.dropDownContainer);
-
-        document.addEventListener('click', () => {
-            if (!this.focussed) {
-                this.searchBoxElement.focus();
-            }
-            this.focussed = this.searchBoxElement === document.activeElement;
-        });
+                                             150);
+        this.dropdown = new Dropdown(this.dropDownContainer, this.searchBoxElement, this.autocompleteElement);
+        
+        document.addEventListener('focus', () => this.searchBoxElement.focus());
 
         const engines = await api.get();
         if (engines.length === 0) throw new Error('No search engines');
@@ -82,6 +76,7 @@ export default class Search {
         this.engines = engines.filter(e => !e.isDefault);
         this.defaultEngine = defaultEngine;
         this.setCurrentEngine(defaultEngine);
+
 
         this.searchSubmitButtonElement.addEventListener('focus', () => {
             this.searchBoxElement.focus();
@@ -144,6 +139,9 @@ export default class Search {
             rows.push({
                 content: `Search on ${this.suggested.name}`,
                 onSelect: () => this.setCurrentEngine(this.suggested),
+                disableAutocomplete: true,
+                actionContent: 'Switch search engine',
+                favicon: this.suggested.favIconUrl,
             });
         }
 
@@ -153,6 +151,7 @@ export default class Search {
                 rows.push({
                     content: suggestion.word,
                     onSelect: () => {this.searchBoxElement.value = suggestion.word},
+                    actionContent: 'Fill',
                 });
             });
         }

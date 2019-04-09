@@ -1,5 +1,4 @@
 const SUGGESTIONS_URL = 'https://api.datamuse.com/sug';
-const PROXY_URL = 'https://cors.io/?';
 
 export default class Autocomplete {
     constructor(inputElement, callback, delay = 500, threshhold = 50, max = 5) {
@@ -31,7 +30,7 @@ export default class Autocomplete {
         url.searchParams.set('s', query);
         url.searchParams.set('max', this.max);
         
-        request.open('GET', PROXY_URL + url.toString(), true);
+        request.open('GET', url.toString(), true);
         request.onreadystatechange = () => {
             if (request.readyState === 4 && request.status === 200) {
                 let scores = JSON.parse(request.response);
@@ -43,7 +42,6 @@ export default class Autocomplete {
                 }
             }
         };
-        console.log('requesting');
         request.send();
     };
 };

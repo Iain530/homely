@@ -17,6 +17,8 @@ const loadContent = async () => {
 
     await Promise.all([search.initialised, topSites.initialised]);
 
+    topSites.render();
+
     // const bookmarks_api = browser.bookmarks;
 
     // let is_focus = false;

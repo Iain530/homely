@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="css/svg-icons.css">
     <link rel="stylesheet" href="css/newtab.css">
     <link rel="stylesheet" href="css/clock.css">
+    <link rel="stylesheet" href="css/topsites.css">
+    <link rel="stylesheet" href="css/bar.css">
 
     <script type="text/javascript" src="js/build.js"></script>
     <script type="module" src="newtab.js"></script>
@@ -21,62 +23,116 @@
     <div class="page-bg"></div>
     <div class="page-body">
 
+
         <div id="clock" class="section clock">
             <div id="time"></div>
             <div id="date"></div>
         </div>
 
-        <div class="search-bar section shadow">
-            <div class="blur">
-                <div class="blur-background"></div>
-                <div class="blur-color light"></div>
+        <div class="search-bar section-container">
+            <div class="search-bar section shadow">
+                <div class="blur">
+                    <div class="blur-background"></div>
+                    <div class="blur-color light"></div>
 
-                <div class="blur-content no-pad">
-                    <div class="bar-content">
-                        <div class="icon">
-                            <img id="search-icon" src="" alt="">
+                    <div class="blur-content no-pad">
+                        <div class="bar-content">
+                            <div class="icon">
+                                <img id="search-icon" src="" alt="">
+                            </div>
+                            <div class="engine-name">
+                                <div id="engine-name"></div>
+                            </div>
+                            <div class="input-container">
+                                <input
+                                    id="autocomplete-input"
+                                    type="search"
+                                    autocomplete="off"
+                                    disabled>
+                                <input id="search" type="search" name="q" placeholder="Search" autocomplete="off">
+                            </div>
+                            <button id="search-submit" type="submit">
+                                <svg class="svg-icon" viewBox="0 0 20 20">
+                                    <path fill="none" d="M19.129,18.164l-4.518-4.52c1.152-1.373,1.852-3.143,1.852-5.077c0-4.361-3.535-7.896-7.896-7.896
+                                    c-4.361,0-7.896,3.535-7.896,7.896s3.535,7.896,7.896,7.896c1.934,0,3.705-0.698,5.078-1.853l4.52,4.519
+                                    c0.266,0.268,0.699,0.268,0.965,0C19.396,18.863,19.396,18.431,19.129,18.164z M8.567,15.028c-3.568,0-6.461-2.893-6.461-6.461
+                                    s2.893-6.461,6.461-6.461c3.568,0,6.46,2.893,6.46,6.461S12.135,15.028,8.567,15.028z"></path>
+                                </svg>
+                            </button>
                         </div>
-                        <div class="engine-name">
-                            <div id="engine-name"></div>
+                        <div id="search-dropdown-container" class="search-dropdown-container" style="display: none">
+                            <div id="search-dropdown" class="dropdown-row"></div>
+                            <div id="search-autocomplete"></div>
                         </div>
-                        <input id="search" type="search" name="q" placeholder="" autocomplete="off">
-                        <button id="search-submit" type="submit">
-                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                <path fill="none" d="M19.129,18.164l-4.518-4.52c1.152-1.373,1.852-3.143,1.852-5.077c0-4.361-3.535-7.896-7.896-7.896
-                                c-4.361,0-7.896,3.535-7.896,7.896s3.535,7.896,7.896,7.896c1.934,0,3.705-0.698,5.078-1.853l4.52,4.519
-                                c0.266,0.268,0.699,0.268,0.965,0C19.396,18.863,19.396,18.431,19.129,18.164z M8.567,15.028c-3.568,0-6.461-2.893-6.461-6.461
-                                s2.893-6.461,6.461-6.461c3.568,0,6.46,2.893,6.46,6.461S12.135,15.028,8.567,15.028z"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <div id="search-dropdown-container" class="search-dropdown-container" style="display: none">
-                        <div id="search-dropdown" class="dropdown-row"></div>
-                        <div id="search-autocomplete"></div>
                     </div>
                 </div>
             </div>
         </div>
-<!-- 
-        <div class="section">
+        
+        <div id="top-sites" class="top-sites"></div>
+        
+        <!-- <div class="section">
             <div class="blur">
                 <div class="blur-background"></div>
                 <div class="blur-color light"></div>
-        
-                <div class="section close-bottom shadow">
-                    <div class="blur">
-                        <div class="blur-background"></div>
-                        <div class="blur-color light"></div>
-                        <div class="blur-content small-pad-v small-pad-h">
-                            <h2>Bookmarks</h2>
-                        </div>
-                    </div>
+                <div class="blur-content small-pad-v small-pad-h">
+                    <div id="top-sites" class="top-sites"></div>
                 </div>
-
-                <div class="grid" id="bookmarks"></div>
             </div>
         </div> -->
-
+        
+        
+        
+        <!-- <div id="overlay">
+            <div class="section" style="position: fixed; top: 0;">
+                <div class="blur">
+                    <div class="blur-background"></div>
+                    <div class="blur-color light"></div>
+                    
+                    <div class="blur-content" style="height: 80vh; width: 40vw; z-index: 100;">
+                    </div>
+                </div>
+            </div>
+        </div> -->
     </div>
+
+    <!-- <div class="bar top">
+        <div class="row">
+            Right
+        </div>
+        <div class="row">
+            <div>
+                Github
+            </div>
+            <div>
+                Settings
+            </div>
+        </div>
+    </div>
+
+    <div class="bar bottom">
+        <div class="row">
+            Right
+        </div>
+        <div class="row">
+            <div>
+                Github
+            </div>
+            <div>
+                Settings
+            </div>
+        </div>
+    </div> -->
+    
+    
+    <svg id="keyboard-tab" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     width="535.5px" height="535.5px" viewBox="0 0 535.5 535.5" xml:space="preserve" style="height: 20px; width: 20px; display: none;">
+        <g>
+            <path d="M270.3,150.45l91.8,91.8H0v51h362.1l-91.8,91.8l35.7,35.7l153-153l-153-153L270.3,150.45z M484.5,114.75v306h51v-306
+                    H484.5z"/>
+        </g>
+    </svg>
+    <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/google" title="Google">Google</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
 </body>
 
 </html>

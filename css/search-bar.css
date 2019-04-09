@@ -1,14 +1,18 @@
-.search-bar {
-    margin-bottom: 2rem;
+
+
+.search-bar.section-container {
+    width: 100%;
+    overflow: visible;
+    height: 4rem;
+    z-index: 10;
 }
 
 .search-bar .icon {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     align-self: stretch;
-    width: 40px;
-    /* background-color: white; */
+    width: 30px;
     opacity: 0.9;
 }
 
@@ -20,7 +24,6 @@
 .search-bar .engine-name {
     display: flex;
     color: white;
-    /* background-color: white; */
     align-self: stretch;
     align-items: center;
     line-height: 100%;
@@ -35,26 +38,42 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    padding: 0 10px;
 }
 
 .search-bar input, .search-bar button {
+    padding: 0;
     background: transparent;
     border: none;
     font-size: 1.5rem;
     
 }
 
+.search-bar .input-container {
+    position: relative;
+    flex-grow: 1;
+}
+
+.search-bar .input-container *:hover {
+    cursor: text;
+}
+
 .search-bar input[type="search"] {
     padding: 0.125rem 0 0.125rem 0.5rem;
-    flex-grow: 1;
     height: 100%;
+    width: 100%;
     color: white;
-    font-size: 1.25rem;
-    font-weight: lighter;
+    font-size: 1.125rem;
+    /* font-weight: lighter; */
+}
+
+.search-bar #autocomplete-input {
+    color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    z-index: -1;
 }
 
 .search-bar button {
-    width: 3rem;
     cursor: pointer;
 }
 
@@ -82,15 +101,43 @@
 .search-bar .dropdown-row {
     width: 100%;
     color: #ddd;
-    padding: 0.25rem;
+    padding: 0.25rem 10px;
+    display: flex;
+}
+
+.search-bar .dropdown-row p.row-content {
+    flex-grow: 1;
+}
+
+.search-bar .dropdown-row p {
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    /* font-weight: lighter; */
+}
+
+.search-bar .dropdown-row:not(.selected-row) p {
 }
 
 .search-bar .dropdown-row.selected-row {
-    color: white;
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.search-bar .tab-icon {
-    height: 25px;
+.search-bar .dropdown-row.selected-row .row-content {
+    color: white;
+}
+
+.search-bar .dropdown-row .icon {
+    margin-right: 0.5rem;
+}
+
+.search-bar .dropdown-row svg {
+    position: relative;
+    top: 2px;
+    margin-left: 10px;
+    opacity: 0.8;
+    height: 20px;
+    width: 20px;
     fill: rgb(218, 218, 218);
 }
