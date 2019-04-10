@@ -14,7 +14,9 @@
         "bookmarks",
         "search",
         "topSites",
-        "tabs"
+        "tabs",
+        "https://www.metaweather.com/*",
+        "https://suggestqueries.google.com/*"
     ],
 
     "chrome_url_overrides": {

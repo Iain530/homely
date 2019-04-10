@@ -1,4 +1,7 @@
-const SUGGESTIONS_URL = 'https://api.datamuse.com/sug';
+import { get } from './requests.js';
+
+const SUGGESTIONS_URL = 'https://suggestqueries.google.com/complete/search';
+const CLIENT = 'firefox';  // TODO (chrome): set dynamically
 
 export default class Autocomplete {
     constructor(inputElement, callback, delay = 500, threshhold = 50, max = 5) {
@@ -25,23 +28,20 @@ export default class Autocomplete {
         this.loading = true;
         this.lastQuery = query;
 
-        const request = new XMLHttpRequest();
         const url = new URL(SUGGESTIONS_URL);
-        url.searchParams.set('s', query);
-        url.searchParams.set('max', this.max);
+        url.searchParams.set('q', query);
+        url.searchParams.set('client', CLIENT);
         
-        request.open('GET', url.toString(), true);
-        request.onreadystatechange = () => {
-            if (request.readyState === 4 && request.status === 200) {
-                let scores = JSON.parse(request.response);
-                if (this.lastQuery === query) {
-                    this.loading = false;
-                    scores = scores.filter(({word, score}) => word !== query && score > this.threshhold);
-                    this.completions = scores;
-                    callback(scores, query);
-                }
+        get(url, (request) => {
+            if (this.lastQuery === query) {
+                const response = JSON.parse(request.response);
+                const completions = response[1].slice(0, 5);
+                this.completions = completions;
+                this.loading = false;
+                callback(completions, query);
             }
-        };
-        request.send();
+        }, (error) => {
+            console.log(`${error.status}: Error calling ${url.toString()}`);
+        });
     };
 };

@@ -105,7 +105,7 @@ const createRow = (row, isSelected) => {
         children.push(TAB_ICON.cloneNode(true));
     }
     const rowElement = create('div', rowClasses, ...children);
-    console.log(rowElement);
+
     return rowElement;
 };
 

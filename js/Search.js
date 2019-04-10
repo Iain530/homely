@@ -149,8 +149,8 @@ export default class Search {
         if (currentQuery !== '' && this.completions) {
             this.completions.forEach((suggestion) => {
                 rows.push({
-                    content: suggestion.word,
-                    onSelect: () => {this.searchBoxElement.value = suggestion.word},
+                    content: suggestion,
+                    onSelect: () => {this.searchBoxElement.value = suggestion},
                     actionContent: 'Fill',
                 });
             });
