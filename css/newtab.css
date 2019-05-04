@@ -4,7 +4,7 @@
 
 body, input, button {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    color: rgb(218, 218, 218);
+    color: white;
 }
 
 html, body {
@@ -59,10 +59,16 @@ and (min-device-width: 2561px) {
     }
 }
 
+/* .page-bg:hover {
+    filter: blur(20px);
+} */
+
 .page-bg {
+    background-color: #333;
     background-size: cover;
     position: fixed;
     top: 0;
+    /* transition: 1s; */
     width: 100%;
     height: 100%;
     animation-name: fadeIn;
@@ -81,25 +87,37 @@ and (min-device-width: 2561px) {
     }
 }
 
+a {
+    color: #444;
+}
+
+a:active {
+    outline: none;
+}
+
+h1 img, h2 img, h3 img, h4 img, h5 img {
+    height: 0.65em;
+    margin-right: 0.25em;
+    opacity: 0.9;
+}
+
 h1, h2 {
-    margin: 0;
-    font-weight: light;
+    font-weight: 400;
+    border-bottom: 1px solid #55555533;
+    padding: 0 0 0.25rem;
+    margin-bottom: 1rem;
 }
 
 h3, h4, h5 {
-    margin: 0 0 0.5rem 0;
-    border-bottom: 1px solid rgb(218, 218, 218, 0.5);
-    padding-bottom: 0.125rem;
-    font-weight: light;
+    font-weight: 400;
 }
 
 .page-body {
     position: relative;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     min-height: 100vh;
-    padding: 3rem 0.5rem;
+    padding: 3rem 0.5rem 2rem;
     width: 95%;
     max-width: 40rem;
     min-width: 20rem;
@@ -109,4 +127,9 @@ h3, h4, h5 {
     animation-timing-function: ease-in-out;
     animation-duration: 0.4s;
     animation-fill-mode: forwards;
+}
+
+.horizontal {
+    display: flex;
+    justify-content: space-between;
 }

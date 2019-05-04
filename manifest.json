@@ -15,6 +15,7 @@
         "search",
         "topSites",
         "tabs",
+        "storage",
         "https://www.metaweather.com/*",
         "https://suggestqueries.google.com/*"
     ],

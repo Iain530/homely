@@ -2,6 +2,7 @@
     position: fixed;
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
     width: 100%;
     z-index: 10;
 }
@@ -15,11 +16,70 @@
 }
 
 .bar .row {
+    position: relative;
     display: flex;
-    padding: 0.5rem 0.75rem;
+    align-items: center;
+    padding: 1rem 1rem;
 }
 
-.bar .row > div {
-    margin: 0 0.375rem;
+.bar .row .row-element .hover-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0 0.5rem;
     text-shadow: 0 0 3px #555;
+    height: 100%;
+    transition: 0.2s;
+    opacity: 0.6;
+    /* transition: 0.9s; */
+}
+
+.bar .row .row-element .hover-button img {
+    height: 25px;
+    widows: 25px;
+    filter: drop-shadow(0 0 2px #555);
+}
+
+.bar .row .row-element .hover-button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.rotate-hover:hover {
+    transform: rotateZ(45deg);
+}
+
+.pointer:hover {
+    cursor: pointer;
+}
+
+.overlay {
+    position: absolute;
+    z-index: 100;
+    top: 2%;
+    left: 0;
+    height: 90%;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.25s ease-in;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+    color: #444;
+}
+
+.overlay img {
+    filter: brightness(0.1)
+}
+
+.overlay > .blur {
+    height: 100%;
+    /* width: 100%; */
+}
+
+.overlay .blur-content {
+    padding-top: 0;
+    scrollbar-width: thin;
+    /* scrollbar-color: #aaa #666; */
+    overflow-y: auto;
+    max-height: 100%;
 }

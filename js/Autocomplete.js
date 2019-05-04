@@ -15,10 +15,12 @@ export default class Autocomplete {
 
         this.inputElement.addEventListener('input', () => {
             clearTimeout(this.timeout);
-            this.timeout = setTimeout(() => this.fetchAutocompletions(callback),
-                                      delay);
+            this.timeout = setTimeout(
+                () => this.fetchAutocompletions(callback),
+                delay,
+            );
         });
-    };
+    }
 
     async fetchAutocompletions(callback = () => {}) {
         const query = this.inputElement.value;
@@ -43,5 +45,5 @@ export default class Autocomplete {
         }, (error) => {
             console.log(`${error.status}: Error calling ${url.toString()}`);
         });
-    };
-};
+    }
+}

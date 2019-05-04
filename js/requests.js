@@ -9,6 +9,6 @@ export const get = (url, callback, error = () => {}) => {
                 error(request);
             }
         }
-    }
+    };
     request.send();
-}
+};

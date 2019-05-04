@@ -3,7 +3,6 @@
     /* border: 1px solid #dadada36; */
     padding: 0.25rem 0.375rem;
     border-radius: 0.125rem;
-    transition: 0.2s;
     cursor: pointer;
     display: flex;
     flex-direction: column;

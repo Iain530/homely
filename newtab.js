@@ -1,21 +1,29 @@
 import Search from './js/Search.js';
 import TopSites from './js/TopSites.js';
 import Clock from './js/Clock.js';
+import Weather from './js/Weather.js';
+import Bar from './js/Bar.js';
 
-const TAB = 9;
+const HOMELY_FOLDER = 'Homely';
+const SOCIAL_FOLDER = 'Social Media';
+const VIDEO_FOLDER = 'Video';
+const MUSIC_FOLDER = 'Music';
 
 const loadContent = async () => {
-    const HOMELY_FOLDER = 'Homely';
-    const SOCIAL_FOLDER = 'Social Media';
-    const VIDEO_FOLDER = 'Video';
-    const MUSIC_FOLDER = 'Music';
 
     const search = new Search();
-    const topSites = new TopSites();
     const clock = new Clock();
     clock.start();
+    const topSites = new TopSites();
+    const weather = new Weather();
+    const bar = new Bar();
 
-    await Promise.all([search.initialised, topSites.initialised]);
+    await Promise.all([
+        search.initialised,
+        topSites.initialised,
+        weather.initialised,
+        bar.initialised,
+    ]);
 
     topSites.render();
 
@@ -108,7 +116,7 @@ const loadContent = async () => {
     //         }
     //     }
     // }
-}
+};
 
 window.addEventListener('DOMContentLoaded', () => {
     loadContent();

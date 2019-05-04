@@ -105,6 +105,10 @@
     display: flex;
 }
 
+.search-bar .dropdown-row:hover {
+    cursor: pointer;
+}
+
 .search-bar .dropdown-row p.row-content {
     flex-grow: 1;
 }
@@ -115,9 +119,6 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     /* font-weight: lighter; */
-}
-
-.search-bar .dropdown-row:not(.selected-row) p {
 }
 
 .search-bar .dropdown-row.selected-row {

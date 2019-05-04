@@ -14,8 +14,10 @@
     <link rel="stylesheet" href="css/clock.css">
     <link rel="stylesheet" href="css/topsites.css">
     <link rel="stylesheet" href="css/bar.css">
+    <link rel="stylesheet" href="css/weather.css">
 
-    <script type="text/javascript" src="js/build.js"></script>
+
+    <!-- <script type="text/javascript" src="js/build.js"></script> -->
     <script type="module" src="newtab.js"></script>
 </head>
 
@@ -23,12 +25,17 @@
     <div class="page-bg"></div>
     <div class="page-body">
 
-
+        
         <div id="clock" class="section clock">
             <div id="time"></div>
             <div id="date"></div>
         </div>
 
+    
+        
+
+        
+        <!-- Search bar -->
         <div class="search-bar section-container">
             <div class="search-bar section shadow">
                 <div class="blur">
@@ -52,6 +59,7 @@
                                 <input id="search" type="search" name="q" placeholder="Search" autocomplete="off">
                             </div>
                             <button id="search-submit" type="submit">
+                                <!-- Search icon -->
                                 <svg class="svg-icon" viewBox="0 0 20 20">
                                     <path fill="none" d="M19.129,18.164l-4.518-4.52c1.152-1.373,1.852-3.143,1.852-5.077c0-4.361-3.535-7.896-7.896-7.896
                                     c-4.361,0-7.896,3.535-7.896,7.896s3.535,7.896,7.896,7.896c1.934,0,3.705-0.698,5.078-1.853l4.52,4.519
@@ -69,7 +77,13 @@
             </div>
         </div>
         
+        <!-- Most common sites -->
         <div id="top-sites" class="top-sites"></div>
+
+        <!-- Temp divider -->
+        <div class="section close-bottom"></div>
+
+        <div id="weather-container" class="weather-container"></div>
         
         <!-- <div class="section">
             <div class="blur">
@@ -94,35 +108,84 @@
                 </div>
             </div>
         </div> -->
+
+        <!-- Page overlays -->
+        <div id="overlay" class="section overlay shadow-always">
+            <div class="blur">
+                <div class="blur-background"></div>
+                <div class="blur-color dark"></div>
+            
+                <div class="blur-content">
+                    <div id="info-overlay" class="overlay-content">
+                        <h1><img src="icons/info-solid.png">About Homely</h1>
+                        <h2>Autocomplete</h2>
+                        <p>Autocomplete results are provided using Google's autocomplete endpoint at <pre>https://suggestqueries.google.com/complete/search</pre></p>
+                        <h2>Weather</h2>
+                        <p>Weather information provided using the <a href="https://www.metaweather.com/">MetaWeather</a> api and localised to you using your devices location (if you allow it).</p>
+                        <h2>Icons</h2>
+                        <p>
+                            Icons were acquired from multiple sources:
+                            <ul>
+                                <li>
+                                    <a href="https://github.com/logos">GitHub</a> for official Github logos.
+                                </li>
+                                <li>
+                                    <a href="https://www.metaweather.com/">MetaWeather</a> for weather icons.
+                                </li>
+                                <li>
+                                    <a href="https://www.flaticon.com/" title="Flaticon">Flaticon</a> (Author: <a href="https://www.flaticon.com/authors/google" title="Google">Google</a>) under
+                                    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 license</a> for other icons.
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- <div class="bar top">
+    <!-- Top nav bar -->
+    <div class="bar top">
+        <!-- Left -->
         <div class="row">
-            Right
+
         </div>
+
+        <!-- Right -->
         <div class="row">
-            <div>
-                Github
+            
+        </div>
+    </div>
+
+    <!-- Bottom nav bar -->
+    <div id="bar-bottom" class="bar bottom">
+        <!-- Right -->
+        <div class="row">
+            <div class="row-element pointer">
+                <div class="hover-button rotate-hover">
+                    <img src="icons/settings.png">
+                </div>
             </div>
-            <div>
-                Settings
+        </div>
+
+        <!-- Left -->
+        <div class="row">
+            <div class="row-element">
+                <a class="remove-style" href="https://github.com/Iain530">
+                    <div class="hover-button">
+                        <img src="icons/github-light.png">
+                    </div>
+                </a>
+            </div>
+            <div id="info-button" class="row-element pointer">
+                <div class="hover-button">
+                    <img src="icons/info-solid.png">
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="bar bottom">
-        <div class="row">
-            Right
-        </div>
-        <div class="row">
-            <div>
-                Github
-            </div>
-            <div>
-                Settings
-            </div>
-        </div>
-    </div> -->
+
     
     
     <svg id="keyboard-tab" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"

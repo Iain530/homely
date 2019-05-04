@@ -1,20 +1,17 @@
 import Autocomplete from './Autocomplete.js';
 import Dropdown from './Dropdown.js';
 
-const api = browser.search;
 const BACKSPACE = 8;
 const TAB = 9;
 const ENTER = 13;
+const ESC = 27;
 const ARROWUP = 38;
 const ARROWDOWN = 40;
 
-const SUGGESTIONS_URL = 'https://api.datamuse.com/sug';
-const getSearchSuggestionUrl = (query) => {
-    const url = new URL(SUGGESTIONS_URL);
-    url.searchParams.set('s', query);
-    return url;
-};
+// eslint-disable-next-line no-undef
+const api = browser.search;
 
+// TODO: update
 // Example usage:
 // <div class="search-bar">
 //     <div class="bar-content">
@@ -31,11 +28,17 @@ const getSearchSuggestionUrl = (query) => {
 //     </div>
 // </div>
 export default class Search {
-    constructor() {
+    constructor(autocompleteDelay = 50) {
+        // attributes
         this.engines = null;
         this.currentEngine = null;
         this.defaultEngine = null;
         this.suggested = null;
+        this.autocomplete = null;
+        this.dropdown = null;
+        this.suggestedTabs = null;
+        this.allTabs = null;
+        this.tabId = null;
         
         // elements
         this.searchIconElement = null;
@@ -46,13 +49,10 @@ export default class Search {
         this.dropDownContainer = null;
         this.autocompleteElement = null;
 
-        this.autocomplete = null;
-        this.dropdown = null;
-
-        this.initialised = this.init();
+        this.initialised = this.init(autocompleteDelay);
     }
 
-    async init() {
+    async init(autocompleteDelay) {
         this.searchIconElement = document.getElementById('search-icon');
         this.searchEngineNameElement = document.getElementById('engine-name');
         this.searchBoxElement = document.getElementById('search');
@@ -62,11 +62,17 @@ export default class Search {
         this.autocompleteElement = document.getElementById('autocomplete-input');
 
         this.autocomplete = new Autocomplete(this.searchBoxElement,
-                                             (completions, query) => this.onCompletionsReturn(completions, query),
-                                             150);
-        this.dropdown = new Dropdown(this.dropDownContainer, this.searchBoxElement, this.autocompleteElement);
-        
-        document.addEventListener('focus', () => this.searchBoxElement.focus());
+            (completions, query) => this.onCompletionsReturn(completions, query),
+            autocompleteDelay);
+        this.dropdown = new Dropdown(this.searchBoxElement,
+            this.dropDownContainer,
+            this.searchBoxElement,
+            this.autocompleteElement);
+
+        // eslint-disable-next-line no-undef
+        this.allTabs = await browser.tabs.query({currentWindow: true});
+        // sort and remove most recent which is New Tab
+        this.tabId = this.allTabs.sort((a, b) => b.lastAccessed - a.lastAccessed).shift().id;
 
         const engines = await api.get();
         if (engines.length === 0) throw new Error('No search engines');
@@ -77,54 +83,66 @@ export default class Search {
         this.defaultEngine = defaultEngine;
         this.setCurrentEngine(defaultEngine);
 
+        // focus the search element when the page is comes in to focus
+        document.addEventListener('focus', () => this.searchBoxElement.focus());
 
-        this.searchSubmitButtonElement.addEventListener('focus', () => {
-            this.searchBoxElement.focus();
-        });
+        // refocus text element on tab
+        this.searchSubmitButtonElement.addEventListener('focus', () => this.searchBoxElement.focus());
+        // click the search button to search
+        this.searchSubmitButtonElement.addEventListener('click', () => this.search(this.searchBoxElement.value));
 
-        this.searchSubmitButtonElement.addEventListener('click', () => {
-            this.search(this.searchBoxElement.value);
-        });
-        
-        this.searchBoxElement.addEventListener('keydown', (e) => {
-            switch (e.keyCode) {
-                case BACKSPACE:
-                    if (this.searchBoxElement.value === '')
-                        this.setCurrentEngine(this.defaultEngine);
-                    break;
-                case ARROWUP:
-                    this.dropdown.moveSelectionUp();
-                    this.setCursorToEnd();
-                    return false; // don't update dropdown
-                case ARROWDOWN:
-                    this.dropdown.moveSelectionDown();
-                    return false; // don't update dropdown
-                case TAB:
-                    this.dropdown.acceptCurrentSelection();
-                    break;
-                case ENTER:
-                    this.search(this.searchBoxElement.value);
-            }
-            this.updateDropDown();
-            return false;
-        });
+        // update the dropdown immediately on focus
+        this.searchBoxElement.addEventListener('focus', () => this.dropdown.update());
 
+        this.searchBoxElement.addEventListener('focusout', () => this.onUnfocus());
+        this.searchBoxElement.addEventListener('keydown', (e) => this.onKeyDown(e));
         this.searchBoxElement.addEventListener('input', () => this.onInput());
         this.searchBoxElement.addEventListener('change', () => this.onInput());
-    };
+    }
+
+    onKeyDown(event) {
+        switch (event.keyCode) {
+        case BACKSPACE:
+            if (this.searchBoxElement.value === '')
+                this.setCurrentEngine(this.defaultEngine);
+            this.updateDropDown();
+            break;
+        case ARROWUP:
+            this.dropdown.moveSelectionUp();
+            event.preventDefault(); // don't move cursor
+            break;
+        case ARROWDOWN:
+            this.dropdown.moveSelectionDown();
+            break;
+        case TAB:
+            this.dropdown.acceptCurrentSelection();
+            this.updateDropDown();
+            break;
+        case ESC:
+            this.searchBoxElement.blur(); // remove focus
+            break;
+        case ENTER:
+            this.search(this.searchBoxElement.value);
+            break;
+        }
+    }
 
     onInput() {
-        this.suggested = this.suggestEngine(this.searchBoxElement.value);
+        const query = this.searchBoxElement.value;
+        this.suggested = this.suggestEngine(query);
+        this.suggestedTabs = this.suggestOpenTab(query);
         this.updateDropDown();
     }
 
-    setCursorToEnd() {
-        // hacky: set the cursor to the end of search box after 1ms
-        // to avoid doing it too early
-        const input = this.searchBoxElement;
-        setTimeout(() => {
-            input.selectionStart = input.selectionEnd = input.value.length
-        }, 1);
+    isFocussed() {
+        const activeElement = document.activeElement;
+        return activeElement === this.searchBoxElement || activeElement === this.searchSubmitButtonElement;  
+    }
+
+    onUnfocus() {
+        if (!this.isFocussed()) {
+            this.dropdown.hide();
+        }
     }
 
     onCompletionsReturn(completions, query) {
@@ -145,21 +163,39 @@ export default class Search {
             });
         }
 
+        if (this.suggestedTabs) {
+            this.suggestedTabs.forEach((tab) => {
+                rows.push({
+                    content: tab.title,
+                    // eslint-disable-next-line no-undef
+                    onSelect: () => this.switchToTab(tab.id),
+                    disableAutocomplete: true,
+                    actionContent: 'Switch to tab',
+                    favicon: tab.favIconUrl,
+                });
+            });
+        }
+
         const currentQuery = this.searchBoxElement.value;
         if (currentQuery !== '' && this.completions) {
             this.completions.forEach((suggestion) => {
                 rows.push({
                     content: suggestion,
-                    onSelect: () => {this.searchBoxElement.value = suggestion},
+                    onSelect: () => {this.searchBoxElement.value = suggestion;},
                     actionContent: 'Fill',
                 });
             });
         }
         
+        // change the state and update document
         this.dropdown.setRows(rows);
         this.dropdown.update();
-    };
+    }
 
+    switchToTab(tabId) {
+        browser.tabs.update(tabId, { active: true });
+        browser.tabs.remove(this.tabId);
+    }
 
     async search(query) {
         const tabId = (await browser.tabs.getCurrent()).id;
@@ -168,12 +204,18 @@ export default class Search {
             engine: this.currentEngine.name,
             tabId,
         });
-    };
+    }
 
     setCurrentEngine(engine) {
         this.currentEngine = engine;
-        this.searchBoxElement.value = '';
-        this.searchIconElement.src = this.currentEngine.favIconUrl; // TODO: use background img
+        const query = this.searchBoxElement.value;
+        const split = query.split(' ');
+        if (split.length > 1) {
+            this.searchBoxElement.value = split.slice(0, split.length-1).join(' ');
+        } else {
+            this.searchBoxElement.value = '';
+        }
+        this.searchIconElement.src = this.currentEngine.favIconUrl;
         if (this.currentEngine.isDefault) {
             this.searchEngineNameElement.parentElement.style = 'display: none';
         } else {
@@ -181,18 +223,24 @@ export default class Search {
             this.searchEngineNameElement.parentElement.style = '';
         }
         this.suggested = null;
-    };
+    }
 
     suggestEngine(query) {
-        if (this.currentEngine !== this.defaultEngine) return null;
+        if (this.currentEngine !== this.defaultEngine || query === '') return null;
 
         const split = query.split(' ');
-        if (query === '' || split.length !== 1)
-            return null;
-        const prefix = split[0].toLowerCase().trim();
+        const prefix = split[split.length-1].toLowerCase().trim();
+        if (split.length > 1 && prefix.length < 2) return null;
         const suggested = this.engines.find((e) => {
             return e.name.toLowerCase().startsWith(prefix) || prefix === e.alias;
         });
         return suggested || null;
-    };
+    }
+
+    suggestOpenTab(query) {
+        if (query.length === 0) return null;
+        return this.allTabs.filter((tab) => {
+            return tab.title.toLowerCase().startsWith(query.toLowerCase());
+        }).slice(0, 5) || null;
+    }
 }

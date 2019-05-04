@@ -1,5 +1,6 @@
 import { buildBlurSection } from './Blur.js';
 
+// eslint-disable-next-line no-undef
 const api = browser.topSites;
 
 export default class TopSites {
@@ -9,7 +10,7 @@ export default class TopSites {
         this.limit = limit;
 
         this.initialised = this.init();
-    };
+    }
 
     async init() {
         this.topSitesElement = document.getElementById('top-sites');
@@ -18,7 +19,7 @@ export default class TopSites {
             includeFavicon: true,
             limit: this.limit,
         });
-    };
+    }
 
     render() {
         this.topSites.forEach((site) => {
@@ -31,7 +32,7 @@ export default class TopSites {
         
             const favicon = document.createElement('img');
             favicon.src = site.favicon;
-            favicon.alt = ''
+            favicon.alt = '';
         
             const name = document.createElement('p');
             name.textContent = site.title;
@@ -47,5 +48,5 @@ export default class TopSites {
             blurContent.appendChild(link);
             this.topSitesElement.appendChild(section);
         });
-    };
+    }
 }

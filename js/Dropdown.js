@@ -2,7 +2,8 @@ const TAB_ICON = document.getElementById('keyboard-tab').cloneNode(true);
 TAB_ICON.style = '';
 
 export default class Dropdown {
-    constructor(containerElement, queryInput, autocompleteInput) {
+    constructor(searchBoxElement, containerElement, queryInput, autocompleteInput) {
+        this.searchBoxElement = searchBoxElement;
         this.containerElement = containerElement;
         this.autocompleteInput = autocompleteInput;
         this.queryInput = queryInput;
@@ -58,7 +59,10 @@ export default class Dropdown {
         const children = this.containerElement.children;
         for (let i = 0; i < children.length; i++) {
             const child = children[i];
-            child.addEventListener('click', () => this.rows[i].onSelect());
+            child.addEventListener('mousedown', (e) => {
+                this.rows[i].onSelect();
+                e.preventDefault();
+            });
         }
         
         // show only if there are elements
