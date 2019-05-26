@@ -9,7 +9,9 @@ const ARROWUP = 38;
 const ARROWDOWN = 40;
 
 // eslint-disable-next-line no-undef
-const api = browser.search;
+const searchApi = browser.search;
+// eslint-disable-next-line no-undef
+const tabsApi = browser.tabs;
 
 // TODO: update
 // Example usage:
@@ -61,20 +63,25 @@ export default class Search {
         this.dropDownContainer = document.getElementById('search-dropdown-container');
         this.autocompleteElement = document.getElementById('autocomplete-input');
 
-        this.autocomplete = new Autocomplete(this.searchBoxElement,
+        this.autocomplete = new Autocomplete(
+            this.searchBoxElement,
             (completions, query) => this.onCompletionsReturn(completions, query),
-            autocompleteDelay);
-        this.dropdown = new Dropdown(this.searchBoxElement,
+            autocompleteDelay,
+        );
+        
+        this.dropdown = new Dropdown(
+            this.searchBoxElement,
             this.dropDownContainer,
             this.searchBoxElement,
-            this.autocompleteElement);
+            this.autocompleteElement
+        );
 
-        // eslint-disable-next-line no-undef
-        this.allTabs = await browser.tabs.query({currentWindow: true});
-        // sort and remove most recent which is New Tab
-        this.tabId = this.allTabs.sort((a, b) => b.lastAccessed - a.lastAccessed).shift().id;
+        this.allTabs = await tabsApi.query({currentWindow: true});
+        // sort and remove most recent which current New Tab
+        this.allTabs.sort((a, b) => b.lastAccessed - a.lastAccessed);
+        this.tabId = this.allTabs.shift().id;
 
-        const engines = await api.get();
+        const engines = await searchApi.get();
         if (engines.length === 0) throw new Error('No search engines');
         const defaultEngine = engines.find(e => e.isDefault);
         if (defaultEngine === undefined) throw new Error('No default engine');
@@ -86,12 +93,12 @@ export default class Search {
         // focus the search element when the page is comes in to focus
         document.addEventListener('focus', () => this.searchBoxElement.focus());
 
-        // refocus text element on tab
+        // refocus text element on tab from search box
         this.searchSubmitButtonElement.addEventListener('focus', () => this.searchBoxElement.focus());
         // click the search button to search
         this.searchSubmitButtonElement.addEventListener('click', () => this.search(this.searchBoxElement.value));
 
-        // update the dropdown immediately on focus
+        // update the dropdown immediately on focus of search box
         this.searchBoxElement.addEventListener('focus', () => this.dropdown.update());
 
         this.searchBoxElement.addEventListener('focusout', () => this.onUnfocus());
@@ -113,16 +120,18 @@ export default class Search {
             break;
         case ARROWDOWN:
             this.dropdown.moveSelectionDown();
+            event.preventDefault();
+            break;
+        case ENTER:
+            this.dropdown.acceptCurrentSelection();
+            this.updateDropDown();
             break;
         case TAB:
-            this.dropdown.acceptCurrentSelection();
+            this.dropdown.acceptTopSelection();
             this.updateDropDown();
             break;
         case ESC:
             this.searchBoxElement.blur(); // remove focus
-            break;
-        case ENTER:
-            this.search(this.searchBoxElement.value);
             break;
         }
     }
@@ -131,6 +140,7 @@ export default class Search {
         const query = this.searchBoxElement.value;
         this.suggested = this.suggestEngine(query);
         this.suggestedTabs = this.suggestOpenTab(query);
+        this.dropdown.setQuery(query);
         this.updateDropDown();
     }
 
@@ -181,8 +191,7 @@ export default class Search {
             this.completions.forEach((suggestion) => {
                 rows.push({
                     content: suggestion,
-                    onSelect: () => {this.searchBoxElement.value = suggestion;},
-                    actionContent: 'Fill',
+                    onSelect: () => this.search(suggestion),
                 });
             });
         }
@@ -193,13 +202,13 @@ export default class Search {
     }
 
     switchToTab(tabId) {
-        browser.tabs.update(tabId, { active: true });
-        browser.tabs.remove(this.tabId);
+        tabsApi.update(tabId, { active: true });
+        tabsApi.remove(this.tabId);
     }
 
     async search(query) {
-        const tabId = (await browser.tabs.getCurrent()).id;
-        api.search({
+        const tabId = (await tabsApi.getCurrent()).id;
+        searchApi.search({
             query,
             engine: this.currentEngine.name,
             tabId,

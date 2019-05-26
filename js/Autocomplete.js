@@ -1,7 +1,7 @@
 import { get } from './requests.js';
 
 const SUGGESTIONS_URL = 'https://suggestqueries.google.com/complete/search';
-const CLIENT = 'firefox';  // TODO (chrome): set dynamically
+const CLIENT = 'firefox';
 
 export default class Autocomplete {
     constructor(inputElement, callback, delay = 500, threshhold = 50, max = 5) {

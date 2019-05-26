@@ -7,32 +7,39 @@ export default class Dropdown {
         this.containerElement = containerElement;
         this.autocompleteInput = autocompleteInput;
         this.queryInput = queryInput;
+        this.query = null;
         // [{content: 'text', onSelect: () => fn(), }, autocompleteDisabled: true, ...]
         this.rows = [];
         this.selected = -1;
-    };
+    }
+
+    setQuery(query) {
+        // current user input query
+        this.query = query;
+    }
 
     setRows(rows) {
         this.rows = rows;
-        this.selected = rows.length > 0 ? 0 : -1;
+        this.selected = -1;
     }
 
     moveSelectionDown() {
-        if (this.selected !== -1)
-            this.selected = (this.selected + 1) % this.rows.length;
+        this.selected = Math.min(this.selected + 1, this.rows.length - 1);
         this.update();
     }
 
     moveSelectionUp() {
-        if (this.selected !== -1)
-            this.selected--;
-            if (this.selected < 0) this.selected = this.rows.length - 1;
+        this.selected = Math.max(this.selected - 1, -1);
         this.update();
     }
 
     acceptCurrentSelection() {
         if (this.selected !== -1)
             this.rows[this.selected].onSelect();
+    }
+
+    acceptTopSelection() {
+        this.acceptSelectionIndex(0);
     }
 
     acceptSelectionIndex(i) {
@@ -52,7 +59,7 @@ export default class Dropdown {
     update() {
         // draw rows
         const elements = this.rows.map((row, i) => {
-            return createRow(row, i === this.selected);
+            return createRow(row, i, i === this.selected);
         });
         this.containerElement.innerHTML = '';
         elements.forEach(ele => this.containerElement.appendChild(ele));
@@ -68,22 +75,31 @@ export default class Dropdown {
         // show only if there are elements
         if (elements.length > 0) {
             this.show();
-            const selected = this.rows[this.selected];
-            const query = this.queryInput.value;
-            if (!selected.disableAutocomplete && selected.content.startsWith(query) && selected.content !== query) {
-                this.autocompleteInput.value = selected.content;
-            } else {
-                this.autocompleteInput.value = '';
-            }
+            if (this.selected === -1 || this.rows[this.selected].disableAutocomplete)
+                this.searchBoxElement.value = this.query;
+            else
+                this.showAutocompletion(this.rows[this.selected]);
         } else {
             this.hide();
-            this.autocompleteInput.value = '';
+        }
+    }
+
+    showAutocompletion(selected) {
+        const query = this.query;
+        if (!selected.disableAutocomplete && selected.content.startsWith(query) && selected.content !== query) {
+            const autocompleteStartIndex = this.query.length;
+            this.searchBoxElement.value = selected.content;
+            this.searchBoxElement.setSelectionRange(
+                autocompleteStartIndex,
+                this.searchBoxElement.value.length,
+                'backward'
+            );
         }
     }
 }
 
 
-const createRow = (row, isSelected) => {
+const createRow = (row, index, isSelected) => {
     const children = [];
     
     if (row.favicon) {
@@ -104,8 +120,13 @@ const createRow = (row, isSelected) => {
             const selectedAction = create('p', []);
             selectedAction.textContent = row.actionContent;
             children.push(selectedAction);
+            const enterIcon = document.createElement('img');
+            enterIcon.src = 'icons/enter.png';
+            enterIcon.className = 'enter';
+            children.push(enterIcon);
         }
         rowClasses.push('selected-row');
+    } else if (index === 0) {
         children.push(TAB_ICON.cloneNode(true));
     }
     const rowElement = create('div', rowClasses, ...children);

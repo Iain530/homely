@@ -9,7 +9,6 @@ const LOCATION_URL = BASE_URL + '/api/location/search';
 const WEATHER_URL = BASE_URL + '/api/location';
 
 const WEATHER_KEY = 'WEATHER';
-const WEATHER_ENABLED_KEY = 'enabled';
 const PREVIOUS_WEATHER_KEY = 'last_weather';
 const PREVIOUS_WEATHER_TIME_KEY = 'last_weather_time';
 
