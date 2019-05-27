@@ -123,6 +123,8 @@ export default class Search {
             event.preventDefault();
             break;
         case ENTER:
+            if (this.dropdown.selected === -1)
+                this.search(this.searchBoxElement.value);
             this.dropdown.acceptCurrentSelection();
             this.updateDropDown();
             break;
