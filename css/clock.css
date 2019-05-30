@@ -3,9 +3,9 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    text-shadow: 0px 0px 1rem #333;
+    text-shadow: 0px 0px 20px #000;
     overflow: visible;
-    font-weight: lighter;
+    /* font-weight: lighter; */
     -webkit-user-select: none; /* Safari */        
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */

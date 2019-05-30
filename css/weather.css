@@ -2,6 +2,9 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    position: absolute;
+    bottom: 0rem;
+    left: 1rem;
 }
 
 .weather-container .section {
@@ -39,7 +42,7 @@
     align-items: center;
     padding: 0.5rem 0.5rem 0.75rem;
     width: 6.45rem;
-    font-weight: lighter;
+    /* font-weight: lighter; */
 
     -webkit-user-select: none; /* Safari */        
     -moz-user-select: none; /* Firefox */

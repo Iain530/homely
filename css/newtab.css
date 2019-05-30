@@ -117,7 +117,7 @@ h3, h4, h5 {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding: 3rem 0.5rem 2rem;
+    padding: 13rem 0.5rem 2rem;
     width: 95%;
     max-width: 40rem;
     min-width: 20rem;

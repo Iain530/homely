@@ -55,6 +55,8 @@ export default class Weather {
 
     async init() {
         this.weatherElement = document.getElementById('weather-container');
+        this.weatherElement.addEventListener('mouseenter', () => this.updateHTML(true));
+        this.weatherElement.addEventListener('mouseleave', () => this.updateHTML());
 
         this.geolocationAvailable = 'geolocation' in navigator;
         if (!this.geolocationAvailable) return;
@@ -144,11 +146,14 @@ export default class Weather {
         return section;
     }
 
-    updateHTML() {
+    updateHTML(hover = false) {
         if (this.weatherData) {
             const boxes = this.weatherData.consolidated_weather.map(day => this.buildWeatherBox(day));
             this.weatherElement.innerHTML = '';
-            boxes.forEach(box => this.weatherElement.appendChild(box));
+            if (hover)
+                boxes.forEach(box => this.weatherElement.appendChild(box));
+            else 
+                this.weatherElement.appendChild(boxes[0]);
         } else {
             console.log('No weather data');
         }

@@ -57,7 +57,7 @@ and (min-device-width: 2561px) {
 
 .blur-color.light {
     background-color: #000;
-    opacity: 0.25;
+    opacity: 0.4;
 }
 
 .blur-color.dark {

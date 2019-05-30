@@ -1,5 +1,6 @@
 import Search from './js/Search.js';
 import TopSites from './js/TopSites.js';
+import Bookmarks from './js/Bookmarks.js';
 import Clock from './js/Clock.js';
 import Weather from './js/Weather.js';
 import Bar from './js/Bar.js';
@@ -15,17 +16,20 @@ const loadContent = async () => {
     const clock = new Clock();
     clock.start();
     const topSites = new TopSites();
+    const bookmarks = new Bookmarks();
     const weather = new Weather();
     const bar = new Bar();
 
     await Promise.all([
         search.initialised,
         topSites.initialised,
+        bookmarks.initialised,
         weather.initialised,
         bar.initialised,
     ]);
 
-    topSites.render();
+    // topSites.render();
+    // bookmarks.render();
 
     // const bookmarks_api = browser.bookmarks;
 
