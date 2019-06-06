@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="css/bar.css">
     <link rel="stylesheet" href="css/weather.css">
 
-
     <!-- <script type="text/javascript" src="js/build.js"></script> -->
     <script type="module" src="newtab.js"></script>
 </head>
@@ -24,16 +23,24 @@
 <body>
     <div class="page-bg"></div>
     <div class="page-body">
-
         
         <div id="clock" class="section clock">
-            <div id="time"></div>
-            <div id="date"></div>
+            
+            <div class="date-time">
+                <div id="time"></div>
+                <div id="date"></div>
+            </div>
+
+            <div id="weather-container2" class="weather-container2">
+                <div class="today">
+                    
+                </div>
+                <div class="list">
+
+                </div>
+            </div>
+
         </div>
-
-    
-        
-
         
         <!-- Search bar -->
         <div class="search-bar section-container">
@@ -43,6 +50,7 @@
                     <div class="blur-color light"></div>
 
                     <div class="blur-content no-pad">
+
                         <div class="bar-content">
                             <div class="icon">
                                 <img id="search-icon" src="" alt="">
@@ -68,6 +76,7 @@
                                 </svg>
                             </button>
                         </div>
+
                         <div id="search-dropdown-container" class="search-dropdown-container" style="display: none">
                             <div id="search-dropdown" class="dropdown-row"></div>
                             <div id="search-autocomplete"></div>
@@ -80,49 +89,20 @@
         <!-- Most common sites -->
         <div id="top-sites" class="top-sites"></div>
 
-        <!-- Most common sites -->
-        <div id="bookmarks" class="top-sites"></div>
-
-        <!-- Temp divider -->
-        <!-- <div class="section close-bottom"></div> -->
-
-        
-        
-        <!-- <div class="section">
-            <div class="blur">
-                <div class="blur-background"></div>
-                <div class="blur-color light"></div>
-                <div class="blur-content small-pad-v small-pad-h">
-                    <div id="top-sites" class="top-sites"></div>
-                </div>
-            </div>
-        </div> -->
-        
-        
-        
-        <!-- <div id="overlay">
-            <div class="section" style="position: fixed; top: 0;">
-                <div class="blur">
-                    <div class="blur-background"></div>
-                    <div class="blur-color light"></div>
-                    
-                    <div class="blur-content" style="height: 80vh; width: 40vw; z-index: 100;">
-                    </div>
-                </div>
-            </div>
-        </div> -->
+        <!-- Bookmarked sites -->
+        <!-- <div id="bookmarks" class="top-sites"></div> -->
 
         <!-- Page overlays -->
         <div id="overlay" class="section overlay shadow-always">
             <div class="blur">
                 <div class="blur-background"></div>
-                <div class="blur-color dark"></div>
-            
+                <div class="blur-color light"></div>
+                
                 <div class="blur-content">
                     <div id="info-overlay" class="overlay-content">
                         <h1><img src="icons/info-solid.png">About Homely</h1>
                         <h2>Autocomplete</h2>
-                        <p>Autocomplete results are provided using Google's autocomplete endpoint at <pre>https://suggestqueries.google.com/complete/search</pre></p>
+                        <p>Autocomplete results are provided using Google autocomplete.</p>
                         <h2>Weather</h2>
                         <p>Weather information provided using the <a href="https://www.metaweather.com/">MetaWeather</a> api and localised to you using your devices location (if you allow it).</p>
                         <h2>Icons</h2>
@@ -143,6 +123,7 @@
                         </p>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -163,18 +144,18 @@
     <div id="weather-container" class="weather-container"></div>
 
     <!-- Bottom nav bar -->
-    <!-- <div id="bar-bottom" class="bar bottom"> -->
+    <div id="bar-bottom" class="bar bottom">
         <!-- Right -->
-        <!-- <div class="row">
+        <div class="row">
             <div class="row-element pointer">
                 <div class="hover-button rotate-hover">
                     <img src="icons/settings.png">
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <!-- Left -->
-        <!-- <div class="row">
+        <div class="row">
             <div class="row-element">
                 <a class="remove-style" href="https://github.com/Iain530">
                     <div class="hover-button">
@@ -188,7 +169,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
 
     
@@ -197,7 +178,7 @@
      width="535.5px" height="535.5px" viewBox="0 0 535.5 535.5" xml:space="preserve" style="height: 20px; width: 20px; display: none;">
         <g>
             <path d="M270.3,150.45l91.8,91.8H0v51h362.1l-91.8,91.8l35.7,35.7l153-153l-153-153L270.3,150.45z M484.5,114.75v306h51v-306
-                    H484.5z"/>
+                     H484.5z"/>
         </g>
     </svg>
     <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/google" title="Google">Google</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->

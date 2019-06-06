@@ -1,4 +1,4 @@
-import { get } from './requests.js';
+import { get } from './services/requests.js';
 
 const SUGGESTIONS_URL = 'https://suggestqueries.google.com/complete/search';
 const CLIENT = 'firefox';

@@ -1,18 +1,18 @@
-import { get } from './requests.js';
 import Storage from './Storage.js';
 import { minsToMillis } from './utils.js';
 import { buildBlurSection } from './Blur.js';
-import { isToday, isTomorrow } from './dates.js';
+
+import { isToday, isTomorrow } from './services/dates.js';
+import { get } from './services/requests.js';
 
 const BASE_URL = 'https://www.metaweather.com';
 const LOCATION_URL = BASE_URL + '/api/location/search';
 const WEATHER_URL = BASE_URL + '/api/location';
 
-const WEATHER_KEY = 'WEATHER';
 const PREVIOUS_WEATHER_KEY = 'last_weather';
 const PREVIOUS_WEATHER_TIME_KEY = 'last_weather_time';
 
-const storage = new Storage(WEATHER_KEY);
+const storage = new Storage('WEATHER');
 
 const DAYS = [
     'Sun',
@@ -71,8 +71,9 @@ export default class Weather {
             return;
         }
 
+        // eslint-disable-next-line no-unused-vars
         const requestError = (request) => {
-            console.log(`Error calling ${request.url}`);
+            // console.log(`Error calling ${request.url}`);
         };
 
         geolocation.getCurrentPosition((position) => {
@@ -90,7 +91,7 @@ export default class Weather {
                     storage.set(PREVIOUS_WEATHER_TIME_KEY, Date.now());
                     this.weatherData = weatherData;
                     this.updateHTML();
-                }, requestError)
+                }, requestError);
             }, requestError);
         });
 
@@ -150,12 +151,11 @@ export default class Weather {
         if (this.weatherData) {
             const boxes = this.weatherData.consolidated_weather.map(day => this.buildWeatherBox(day));
             this.weatherElement.innerHTML = '';
+            
             if (hover)
                 boxes.forEach(box => this.weatherElement.appendChild(box));
             else 
                 this.weatherElement.appendChild(boxes[0]);
-        } else {
-            console.log('No weather data');
         }
     }
 }

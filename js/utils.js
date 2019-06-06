@@ -1,1 +1,1 @@
-export const minsToMillis = mins => mins * 60000
+export const minsToMillis = mins => mins * 60000;

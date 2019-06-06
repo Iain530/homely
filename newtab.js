@@ -28,7 +28,7 @@ const loadContent = async () => {
         bar.initialised,
     ]);
 
-    // topSites.render();
+    topSites.render();
     // bookmarks.render();
 
     // const bookmarks_api = browser.bookmarks;

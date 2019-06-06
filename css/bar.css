@@ -64,11 +64,15 @@
     transition: 0.25s ease-in;
     border-radius: 0.25rem;
     font-size: 0.9em;
-    color: #444;
+    color: #fff;
+}
+
+.overlay a {
+    color: #ddd;
 }
 
 .overlay img {
-    filter: brightness(0.1)
+    margin-right: 1rem;
 }
 
 .overlay > .blur {
