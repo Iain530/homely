@@ -23,7 +23,7 @@ export const details = {
     // },
     weatherEnabled: {
         title: 'Local Weather',
-        description: 'Local forecast in your location',
+        description: 'Weather forecast in your location',
         type: 'boolean',
     },
 };

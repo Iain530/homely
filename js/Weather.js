@@ -5,6 +5,7 @@ import { buildBlurSection } from './Blur.js';
 import { isToday, isTomorrow } from './services/dates.js';
 import { get } from './services/requests.js';
 import { loadSettings } from './services/settings.js';
+import { addOverlay } from './services/overlay.js';
 
 const BASE_URL = 'https://www.metaweather.com';
 const LOCATION_URL = BASE_URL + '/api/location/search';
@@ -59,15 +60,17 @@ export default class Weather {
     async init() {
         const settings = await loadSettings();
         
-        this.newElement = document.getElementById('weather-container2');
+        this.newElement = document.getElementById('weather-container');
         if (!settings.weatherEnabled) {
             this.newElement.style.display = 'none';
             return;
         }
 
-        this.weatherElement = document.getElementById('weather-container');
-        this.weatherElement.addEventListener('mouseenter', () => this.updateHTML(true));
-        this.weatherElement.addEventListener('mouseleave', () => this.updateHTML());
+        addOverlay('weather-container', 'weather-overlay');
+
+        // this.weatherElement = document.getElementById('weather-container');
+        // this.weatherElement.addEventListener('mouseenter', () => this.updateHTML(true));
+        // this.weatherElement.addEventListener('mouseleave', () => this.updateHTML());
 
         this.geolocationAvailable = 'geolocation' in navigator;
         if (!this.geolocationAvailable) return;
@@ -101,7 +104,6 @@ export default class Weather {
                     storage.set(PREVIOUS_WEATHER_KEY, weatherData);
                     storage.set(PREVIOUS_WEATHER_TIME_KEY, Date.now());
                     this.weatherData = weatherData;
-                    console.log(weatherData);
                     this.updateHTML();
                 }, requestError);
             }, requestError);
@@ -161,19 +163,19 @@ export default class Weather {
 
     updateHTML(hover = false) {
         if (this.weatherData) {
-            const boxes = this.weatherData.consolidated_weather.map(day => this.buildWeatherBox(day));
-            this.weatherElement.innerHTML = '';
+            // const boxes = this.weatherData.consolidated_weather.map(day => this.buildWeatherBox(day));
+            this.newElement.innerHTML = '';
             
-            if (hover)
-                boxes.forEach(box => this.weatherElement.appendChild(box));
-            else 
-                this.weatherElement.appendChild(boxes[0]);
+            // if (hover)
+            //     boxes.forEach(box => this.weatherElement.appendChild(box));
+            // else 
+            //     this.weatherElement.appendChild(boxes[0]);
             
             const location = document.createElement('div');
             location.className = 'weather location';
             location.textContent = this.weatherData.title;
 
-            this.newElement.appendChild(boxes[0]);
+            this.newElement.appendChild(this.buildWeatherBox(this.weatherData.consolidated_weather[0]));
             this.newElement.appendChild(location);
         }
     }

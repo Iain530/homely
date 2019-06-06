@@ -4,7 +4,7 @@
     justify-content: space-evenly;
     text-shadow: 0px 0px 20px #000;
     overflow: visible;
-    /* font-weight: lighter; */
+    font-weight: lighter;
     -webkit-user-select: none; /* Safari */        
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
@@ -13,14 +13,12 @@
 
 .clock #time {
     font-size: 8rem;
+    line-height: 8rem;
     color: white;
-    margin-bottom: -1rem;
-    margin-top: -1rem;
+    text-align: center;
 }
 
 .clock #date {
     font-size: 2rem;
     color: white;
-    /* position: relative;
-    top: -1rem; */
 }
