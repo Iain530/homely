@@ -4,6 +4,7 @@ import { buildBlurSection } from './Blur.js';
 
 import { isToday, isTomorrow } from './services/dates.js';
 import { get } from './services/requests.js';
+import { loadSettings } from './services/settings.js';
 
 const BASE_URL = 'https://www.metaweather.com';
 const LOCATION_URL = BASE_URL + '/api/location/search';
@@ -50,10 +51,20 @@ export default class Weather {
         this.refreshEvery = minsToMillis(refreshEvery);
         this.weatherElement = null;
 
+        this.newElement = null;
+
         this.initialised = this.init();
     }
 
     async init() {
+        const settings = await loadSettings();
+        
+        this.newElement = document.getElementById('weather-container2');
+        if (!settings.weatherEnabled) {
+            this.newElement.style.display = 'none';
+            return;
+        }
+
         this.weatherElement = document.getElementById('weather-container');
         this.weatherElement.addEventListener('mouseenter', () => this.updateHTML(true));
         this.weatherElement.addEventListener('mouseleave', () => this.updateHTML());
@@ -90,6 +101,7 @@ export default class Weather {
                     storage.set(PREVIOUS_WEATHER_KEY, weatherData);
                     storage.set(PREVIOUS_WEATHER_TIME_KEY, Date.now());
                     this.weatherData = weatherData;
+                    console.log(weatherData);
                     this.updateHTML();
                 }, requestError);
             }, requestError);
@@ -115,7 +127,7 @@ export default class Weather {
 
     buildWeatherBox(day) {
         const weatherBox = document.createElement('div');
-        weatherBox.className = 'weather-box';
+        // weatherBox.className = 'weather-box';
         
         const date = document.createElement('div');
         date.className = 'weather date';
@@ -134,7 +146,7 @@ export default class Weather {
         state.appendChild(stateIcon);
         state.appendChild(temp);
 
-        weatherBox.appendChild(date);
+        // weatherBox.appendChild(date);
         weatherBox.appendChild(state);
         // weatherBox.appendChild(temp);
 
@@ -144,7 +156,7 @@ export default class Weather {
 
         // section.className += ' no-margin';
 
-        return section;
+        return weatherBox;
     }
 
     updateHTML(hover = false) {
@@ -156,6 +168,13 @@ export default class Weather {
                 boxes.forEach(box => this.weatherElement.appendChild(box));
             else 
                 this.weatherElement.appendChild(boxes[0]);
+            
+            const location = document.createElement('div');
+            location.className = 'weather location';
+            location.textContent = this.weatherData.title;
+
+            this.newElement.appendChild(boxes[0]);
+            this.newElement.appendChild(location);
         }
     }
 }

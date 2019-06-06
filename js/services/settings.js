@@ -13,18 +13,18 @@ const defaultSettings = {
 export const details = {
     topSitesEnabled: {
         title: 'Top Sites',
-        description: 'Quick links to your most visited sites.',
-        type: 'bool',
+        description: 'Quick links to your most visited sites',
+        type: 'boolean',
     },
-    topSitesRows: {
-        title: 'Top Sites',
-        description: 'Number of rows to display',
-        type: 'int',
-    },
+    // topSitesRows: {
+    //     title: 'Top Sites',
+    //     description: 'Number of rows to display',
+    //     type: 'int',
+    // },
     weatherEnabled: {
         title: 'Local Weather',
-        description: 'Local forecast in your location.',
-        type: 'bool',
+        description: 'Local forecast in your location',
+        type: 'boolean',
     },
 };
 
@@ -34,10 +34,10 @@ const validateSettings = {
 
 export const loadSettings = async () => {
     if (!settings) {
-        settings = {...defaultSettings};
         const savedSettings = await storage.get(SETTINGS_KEY);
+        settings = {...defaultSettings};
         if (savedSettings)
-            Object.entries(([key, value]) => {
+            Object.entries(savedSettings).forEach(([key, value]) => {
                 settings[key] = value;
             });
     }

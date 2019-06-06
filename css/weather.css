@@ -56,7 +56,7 @@
     /* font-weight: 500; */
 }
 
-.weather-box .state {
+.weather-box .state, .weather-container2 .state {
     /* font-size: 0.75rem; */
     display: flex;
     align-items: center;
@@ -68,4 +68,30 @@
     width: 30px;
     margin-right: 5px;
     filter: brightness(1.2);
+}
+
+.weather-container2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 10rem;
+}
+
+.weather-container2 .state {
+    display: flex;
+    justify-content: space-around;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.weather-container2 .state img {
+    height: 4rem;
+    width: 4rem;
+    filter: drop-shadow(0 0 20px rgb(0, 0, 0));
+}
+
+.weather-container2 .location {
+    font-size: 1.25rem;
+    display: flex;
+    justify-content: center;
 }

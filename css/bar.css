@@ -59,10 +59,11 @@
     top: 2%;
     left: 0;
     height: 90%;
+    width: 100%;
     visibility: hidden;
     opacity: 0;
     transition: 0.25s ease-in;
-    border-radius: 0.25rem;
+    border-radius: 0.75rem;
     font-size: 0.9em;
     color: #fff;
 }
