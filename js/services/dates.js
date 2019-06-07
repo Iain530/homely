@@ -1,5 +1,16 @@
 const isEqual = (d1, d2) => d1.getTime() === d2.getTime();
 
+const DAYS = [
+    'Sun',
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
+];
+
+
 export const today = () => atMidnight(new Date());
 
 export const atMidnight = (date) => {
@@ -17,3 +28,10 @@ export const addDays = (date, days) => {
     copy.setDate(copy.getDate() + days);
     return copy;
 };
+
+export const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    if (isToday(date)) return 'Today';
+    if (isTomorrow(date)) return 'Tomorrow';
+    return `${DAYS[date.getDay()]} ${date.getDate()}`;
+}

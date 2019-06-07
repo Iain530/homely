@@ -1,14 +1,14 @@
-import { buildBlurSection } from './Blur.js';
+import { buildBlurSection } from './utils.js';
 import { loadSettings } from './services/settings.js';
 
 // eslint-disable-next-line no-undef
 const api = browser.topSites;
 
 export default class TopSites {
-    constructor(limit = 12) {
+    constructor() {
         this.topSites = null;
         this.topSitesElement = null;
-        this.enabled = true;
+        this.enabled = null;
         this.limit = 12;
 
         this.initialised = this.init();
@@ -17,7 +17,9 @@ export default class TopSites {
     async init() {
         const settings = await loadSettings();
         this.enabled = settings.topSitesEnabled;
+        if (!this.enabled) return;
         this.limit = 6 * settings.topSitesRows;
+
         this.topSitesElement = document.getElementById('top-sites');
 
         this.topSites = await api.get({

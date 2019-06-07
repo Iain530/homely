@@ -1,0 +1,9 @@
+.quote {
+    text-align: center;
+    font-weight: lighter;
+    text-shadow: 0px 0px 20px #000;
+}
+
+.quote .quote-text {
+    font-style: italic;
+}

@@ -1,14 +1,24 @@
-.settings-overlay {
-    
+.settings-container {
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .settings.row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     /* padding: 0.125rem 0; */
     padding: 0.5rem 1rem;
     border-radius: 0.75rem;
     /* border-bottom: 1px solid hsla(0, 0%, 77%, 0.603); */
+}
+
+.settings.row div.input {
+    margin-left: 1rem;
+}
+
+.settings.row:last-of-type {
+    margin-bottom: 2rem;
 }
 
 .settings.row:hover {

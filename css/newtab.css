@@ -1,5 +1,7 @@
 * {
     box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: #aaaaaa77 #66666600;
 }
 
 body, input, button {
@@ -103,9 +105,12 @@ h1 img, h2 img, h3 img, h4 img, h5 img {
 
 h1, h2 {
     font-weight: 400;
-    border-bottom: 1px solid #55555533;
     padding: 0 0 0.25rem;
     margin-bottom: 1rem;
+}
+
+h2 {
+    border-bottom: 1px solid #e2e2e233;
 }
 
 h3, h4, h5 {

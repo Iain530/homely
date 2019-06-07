@@ -18,8 +18,18 @@
 .bar .row {
     position: relative;
     display: flex;
+    flex: 1 1 0;
     align-items: center;
     padding: 1rem 1rem;
+}
+
+.bar .row:nth-of-type(2) {
+    flex: 2 1 0;
+    justify-content: center;
+}
+
+.bar .row:nth-of-type(3) {
+    justify-content: flex-end;
 }
 
 .bar .row .row-element .hover-button {
@@ -58,7 +68,7 @@
     z-index: 100;
     top: 2%;
     left: 0;
-    height: 90%;
+    height: 88%;
     width: 100%;
     visibility: hidden;
     opacity: 0;
@@ -83,8 +93,6 @@
 
 .overlay .blur-content {
     padding-top: 0;
-    scrollbar-width: thin;
-    /* scrollbar-color: #aaa #666; */
-    overflow-y: auto;
     max-height: 100%;
+    overflow: auto;
 }

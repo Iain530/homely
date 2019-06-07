@@ -1,0 +1,4 @@
+/* Remove the main background image and all blurred background */
+.page-bg, .blur-background {
+    background-image: none !important;
+}

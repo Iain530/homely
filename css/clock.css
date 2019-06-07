@@ -18,7 +18,15 @@
     text-align: center;
 }
 
+.clock #time span {
+    font-size: 4rem;
+    line-height: 4rem;
+    position: relative;
+    /* bottom: 0.5rem; */
+}
+
 .clock #date {
     font-size: 2rem;
     color: white;
+    text-align: center;
 }

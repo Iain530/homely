@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
-<head>
+<head id="head">
     <meta charset="utf-8">
     <title>New Tab</title>
 
@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/weather.css">
     <link rel="stylesheet" href="css/settings.css">
     <link rel="stylesheet" href="css/switch.css">
+    <link rel="stylesheet" href="css/quote.css">
 
     <!-- <script type="text/javascript" src="js/build.js"></script> -->
     <script type="module" src="newtab.js"></script>
@@ -26,9 +27,9 @@
     <div class="page-bg" id="page-bg"></div>
     <div class="page-body">
         
-        <div id="clock" class="section clock">
+        <div class="section clock">
             
-            <div class="date-time">
+            <div id="clock" class="date-time">
                 <div id="time"></div>
                 <div id="date"></div>
             </div>
@@ -45,7 +46,7 @@
         </div>
         
         <!-- Search bar -->
-        <div class="search-bar section-container">
+        <div id="search-bar" class="search-bar section-container">
             <div class="search-bar section shadow">
                 <div class="blur">
                     <div class="blur-background"></div>
@@ -164,6 +165,11 @@
                     <img src="icons/info-solid.png">
                 </div>
             </div>
+        </div>
+
+        <!-- Middle -->
+        <div class="row">
+            <div id="quote" class="quote"></div>
         </div>
 
         <!-- Left -->

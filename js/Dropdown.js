@@ -1,3 +1,5 @@
+import { createElement } from './utils.js';
+
 const TAB_ICON = document.getElementById('keyboard-tab').cloneNode(true);
 TAB_ICON.style = '';
 
@@ -8,34 +10,42 @@ export default class Dropdown {
         this.autocompleteInput = autocompleteInput;
         this.queryInput = queryInput;
         this.query = null;
+        this.selected = -1;
+        this.mouseSelectionEnabled = false;
+
+        document.addEventListener('mousemove', () => {
+            this.mouseSelectionEnabled = true; 
+        });
         // [{content: 'text', onSelect: () => fn(), }, autocompleteDisabled: true, ...]
         this.rows = [];
-        this.selected = -1;
     }
 
     setQuery(query) {
         // current user input query
         this.query = query;
+        this.mouseSelectionEnabled = false;
     }
 
     setRows(rows) {
         this.rows = rows;
         this.selected = -1;
+        this.mouseSelectionEnabled = false;
     }
 
     moveSelectionDown() {
         this.selected = Math.min(this.selected + 1, this.rows.length - 1);
-        this.update();
+        this.render();
+        this.mouseSelectionEnabled = false;
     }
 
     moveSelectionUp() {
         this.selected = Math.max(this.selected - 1, -1);
-        this.update();
+        this.render();
+        this.mouseSelectionEnabled = false;
     }
 
     acceptCurrentSelection() {
-        if (this.selected !== -1)
-            this.rows[this.selected].onSelect();
+        this.acceptSelectionIndex(this.selected);
     }
 
     acceptTopSelection() {
@@ -46,6 +56,7 @@ export default class Dropdown {
         if (i >= 0 && i < this.rows.length) {
             this.rows[i].onSelect();
         }
+        this.mouseSelectionEnabled = false;
     }
 
     show() {
@@ -56,7 +67,7 @@ export default class Dropdown {
         this.containerElement.style = 'display: none';
     }
 
-    update() {
+    render() {
         // draw rows
         const elements = this.rows.map((row, i) => {
             return createRow(row, i, i === this.selected);
@@ -70,9 +81,14 @@ export default class Dropdown {
                 this.rows[i].onSelect();
                 e.preventDefault();
             });
+            child.addEventListener('mouseover', () => {
+                if (this.mouseSelectionEnabled && this.selected !== i) {
+                    this.selected = i;
+                    this.render();
+                }
+            });
         }
         
-        // show only if there are elements
         if (elements.length > 0) {
             this.show();
             if (this.selected === -1 || this.rows[this.selected].disableAutocomplete)
@@ -92,7 +108,7 @@ export default class Dropdown {
             this.searchBoxElement.setSelectionRange(
                 autocompleteStartIndex,
                 this.searchBoxElement.value.length,
-                'backward'
+                'backward',
             );
         }
     }
@@ -103,40 +119,32 @@ const createRow = (row, index, isSelected) => {
     const children = [];
     
     if (row.favicon) {
-        const img = create('img', []);
-        img.src = row.favicon;
-        const icon = create('div', ['icon'], img);
+        const img = createElement('img', [], null, {src: row.favicon});
+
+        const icon = createElement('div', ['icon'], [img]);
         children.push(icon);
     }
-    
-    const content = create('p', ['row-content']);
-    content.textContent = row.content;
+
+    const content = createElement('p', ['row-content'], null, {textContent: row.content});
     children.push(content);
 
     
     const rowClasses = ['dropdown-row'];
     if (isSelected) {
         if (row.actionContent) {
-            const selectedAction = create('p', []);
-            selectedAction.textContent = row.actionContent;
+            const selectedAction = createElement('p', [], null, {textContent: row.actionContent});
+            const enterIcon = createElement('img', ['enter'], null, {src: 'icons/enter.png'});
+
             children.push(selectedAction);
-            const enterIcon = document.createElement('img');
-            enterIcon.src = 'icons/enter.png';
-            enterIcon.className = 'enter';
             children.push(enterIcon);
+        } else if (index === 0) {
+            children.push(TAB_ICON.cloneNode(true));
         }
         rowClasses.push('selected-row');
     } else if (index === 0) {
+        // tab shortcut for top suggestions
         children.push(TAB_ICON.cloneNode(true));
     }
-    const rowElement = create('div', rowClasses, ...children);
 
-    return rowElement;
-};
-
-const create = (ele, classes, ...children) => {
-    const element = document.createElement(ele);
-    element.className = classes.join(' ');
-    children.forEach(c => element.appendChild(c));
-    return element;
+    return createElement('div', rowClasses, children);
 };

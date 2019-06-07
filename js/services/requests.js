@@ -1,4 +1,4 @@
-export const get = (url, callback, error = () => {}) => {
+export const get = (url, callback, error = null) => {
     const request = new XMLHttpRequest();
     request.open('GET', url.toString(), true);
     request.onreadystatechange = () => {
@@ -6,7 +6,10 @@ export const get = (url, callback, error = () => {}) => {
             if (request.status === 200) {
                 callback(request);
             } else {
-                error(request);
+                // eslint-disable-next-line no-console
+                console.log(`${request.status}: Error calling ${url.toString()}`);
+                if (error)
+                    error(request);
             }
         }
     };

@@ -1,6 +1,8 @@
 import Autocomplete from './Autocomplete.js';
 import Dropdown from './Dropdown.js';
 
+import { loadSettings } from './services/settings.js';
+
 const BACKSPACE = 8;
 const TAB = 9;
 const ENTER = 13;
@@ -43,6 +45,7 @@ export default class Search {
         this.tabId = null;
         
         // elements
+        this.searchElement = null;
         this.searchIconElement = null;
         this.searchEngineNameElement = null;
         this.searchBoxElement = null;
@@ -55,6 +58,15 @@ export default class Search {
     }
 
     async init(autocompleteDelay) {
+
+        this.searchElement = document.getElementById('search-bar');
+
+        const settings = await loadSettings();
+        if (!settings.searchBarEnabled) {
+            this.searchElement.style.display = 'none';
+            return;
+        }
+
         this.searchIconElement = document.getElementById('search-icon');
         this.searchEngineNameElement = document.getElementById('engine-name');
         this.searchBoxElement = document.getElementById('search');
@@ -63,11 +75,13 @@ export default class Search {
         this.dropDownContainer = document.getElementById('search-dropdown-container');
         this.autocompleteElement = document.getElementById('autocomplete-input');
 
-        this.autocomplete = new Autocomplete(
-            this.searchBoxElement,
-            (completions, query) => this.onCompletionsReturn(completions, query),
-            autocompleteDelay,
-        );
+        if (settings.googleAutocompleteEnabled) {
+            this.autocomplete = new Autocomplete(
+                this.searchBoxElement,
+                (completions, query) => this.onCompletionsReturn(completions, query),
+                autocompleteDelay,
+            );
+        }
         
         this.dropdown = new Dropdown(
             this.searchBoxElement,
@@ -99,7 +113,7 @@ export default class Search {
         this.searchSubmitButtonElement.addEventListener('click', () => this.search(this.searchBoxElement.value));
 
         // update the dropdown immediately on focus of search box
-        this.searchBoxElement.addEventListener('focus', () => this.dropdown.update());
+        this.searchBoxElement.addEventListener('focus', () => this.dropdown.render());
 
         this.searchBoxElement.addEventListener('focusout', () => this.onUnfocus());
         this.searchBoxElement.addEventListener('keydown', (e) => this.onKeyDown(e));
@@ -179,7 +193,6 @@ export default class Search {
             this.suggestedTabs.forEach((tab) => {
                 rows.push({
                     content: tab.title,
-                    // eslint-disable-next-line no-undef
                     onSelect: () => this.switchToTab(tab.id),
                     disableAutocomplete: true,
                     actionContent: 'Switch to tab',
@@ -200,7 +213,7 @@ export default class Search {
         
         // change the state and update document
         this.dropdown.setRows(rows);
-        this.dropdown.update();
+        this.dropdown.render();
     }
 
     switchToTab(tabId) {

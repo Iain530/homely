@@ -1,19 +1,35 @@
-import Storage from '../Storage.js';
+import Storage from './storage.js';
 
 const storage = new Storage('SETTINGS');
 const SETTINGS_KEY = 'all_settings';
 
 let settings;
 const defaultSettings = {
+    searchBarEnabled: true,
+    googleAutocompleteEnabled: true,
     topSitesEnabled: true,
     topSitesRows: 2,
     weatherEnabled: true,
+    backgroundImagesEnabled: true,
+    clockEnabled: true,
+    clockHour12: false,
+    quoteEnabled: false,
 };
 
 export const details = {
+    searchBarEnabled: {
+        title: 'Search',
+        description: 'Search bar with support for most search engines with keyword switching, autcomplete and support for searching open tabs by title',
+        type: 'boolean',
+    },
+    googleAutocompleteEnabled: {
+        title: 'Search',
+        description: 'Get suggestions when typing a query (all suggestions are from Google no matter which engine is currently selected)',
+        type: 'boolean',
+    },
     topSitesEnabled: {
         title: 'Top Sites',
-        description: 'Quick links to your most visited sites',
+        description: 'Show links to your most visited sites',
         type: 'boolean',
     },
     // topSitesRows: {
@@ -21,9 +37,29 @@ export const details = {
     //     description: 'Number of rows to display',
     //     type: 'int',
     // },
+    clockEnabled: {
+        title: 'Clock',
+        description: 'Display a digital clock with the current date and time',
+        type: 'boolean',
+    },
+    clockHour12: {
+        title: 'Clock',
+        description: 'Use 12 hour time',
+        type: 'boolean',
+    },
     weatherEnabled: {
         title: 'Local Weather',
-        description: 'Weather forecast in your location',
+        description: 'Show weather forecast in your location',
+        type: 'boolean',
+    },
+    quoteEnabled: {
+        title: 'Quote of the Day',
+        description: 'Show a motivational or inspiring quote of the day',
+        type: 'boolean',
+    },
+    backgroundImagesEnabled: {
+        title: 'Background Image',
+        description: 'Show a daily background image',
         type: 'boolean',
     },
 };

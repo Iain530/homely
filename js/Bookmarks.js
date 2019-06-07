@@ -1,6 +1,4 @@
-import {
-    buildBlurSection
-} from './Blur.js';
+import { buildBlurSection } from './utils.js';
 
 // eslint-disable-next-line no-undef
 const api = browser.bookmarks;
@@ -21,10 +19,9 @@ export default class Bookmarks {
         const folders = await api.search({
             title: HOMELY_FOLDER,
         });
-        console.log(folders);
+
         if (folders.length > 0) {
             this.bookmarks = (await api.getSubTree(folders[0].id))[0].children;
-            console.log(this.bookmarks);
         }
     }
 

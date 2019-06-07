@@ -1,76 +1,45 @@
-import Storage from './Storage.js';
-import { minsToMillis } from './utils.js';
-import { buildBlurSection } from './Blur.js';
+import { minsToMillis, createElement, buildBlurSection } from './utils.js';
 
-import { isToday, isTomorrow } from './services/dates.js';
-import { get } from './services/requests.js';
+import Storage from './services/storage.js';
+import { formatDate } from './services/dates.js';
 import { loadSettings } from './services/settings.js';
 import { addOverlay } from './services/overlay.js';
+import { 
+    getLocationByLattLong,
+    getWeatherAtLocation,
+    iconURL,
+} from './services/weather.js';
 
-const BASE_URL = 'https://www.metaweather.com';
-const LOCATION_URL = BASE_URL + '/api/location/search';
-const WEATHER_URL = BASE_URL + '/api/location';
 
 const PREVIOUS_WEATHER_KEY = 'last_weather';
 const PREVIOUS_WEATHER_TIME_KEY = 'last_weather_time';
 
 const storage = new Storage('WEATHER');
 
-const DAYS = [
-    'Sun',
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-];
-
-export const iconURL = (state) => {
-    return `${BASE_URL}/static/img/weather/${state}.svg`;
-};
-
-export const getLocationByLattLong = ({ latt, long }, callback, error) => {
-    const url = `${LOCATION_URL}?lattlong=${latt},${long}`;
-    get(url, callback, error);
-};
-
-export const getLocationByNameQuery = (query, callback, error) => {
-    const url = new URL(LOCATION_URL);
-    url.searchParams.set('query', query);
-    get(url, callback, error);
-};
-
-export const getWeatherAtLocation = (woeid, callback, error) => {
-    const url = `${WEATHER_URL}/${woeid}/`;
-    get(url, callback, error);
-};
-
 
 export default class Weather {
     constructor(refreshEvery = 1) {
         this.refreshEvery = minsToMillis(refreshEvery);
         this.weatherElement = null;
-
-        this.newElement = null;
+        this.weatherOverlay = null;
+        
+        this.enabled = null;
 
         this.initialised = this.init();
     }
 
     async init() {
-        const settings = await loadSettings();
+        this.weatherElement = document.getElementById('weather-container');
+        this.weatherOverlay = document.getElementById('weather-overlay');
         
-        this.newElement = document.getElementById('weather-container');
-        if (!settings.weatherEnabled) {
-            this.newElement.style.display = 'none';
+        const settings = await loadSettings();
+        this.enabled = settings.weatherEnabled;
+        if (!this.enabled) {
+            this.weatherElement.style.display = 'none';
             return;
         }
 
         addOverlay('weather-container', 'weather-overlay');
-
-        // this.weatherElement = document.getElementById('weather-container');
-        // this.weatherElement.addEventListener('mouseenter', () => this.updateHTML(true));
-        // this.weatherElement.addEventListener('mouseleave', () => this.updateHTML());
 
         this.geolocationAvailable = 'geolocation' in navigator;
         if (!this.geolocationAvailable) return;
@@ -78,17 +47,13 @@ export default class Weather {
 
         const previousWeatherTime = await storage.get(PREVIOUS_WEATHER_TIME_KEY);
 
-        if (previousWeatherTime && Date.now() - previousWeatherTime <= this.refreshEvery) {
+        if (this.usePreviousWeather(previousWeatherTime)) {
             const previousWeatherData = await storage.get(PREVIOUS_WEATHER_KEY);
             this.weatherData = previousWeatherData;
-            this.updateHTML();
+            this.render();
             return;
         }
 
-        // eslint-disable-next-line no-unused-vars
-        const requestError = (request) => {
-            // console.log(`Error calling ${request.url}`);
-        };
 
         geolocation.getCurrentPosition((position) => {
             this.position = position;
@@ -96,31 +61,30 @@ export default class Weather {
                 latt: position.coords.latitude,
                 long: position.coords.longitude,
             };
+
             getLocationByLattLong(lattlong, (request) => {
                 const locations = JSON.parse(request.response);
                 const woeid = locations[0].woeid;
+
                 getWeatherAtLocation(woeid, (request) => {
                     const weatherData = JSON.parse(request.response);
                     storage.set(PREVIOUS_WEATHER_KEY, weatherData);
                     storage.set(PREVIOUS_WEATHER_TIME_KEY, Date.now());
                     this.weatherData = weatherData;
-                    this.updateHTML();
-                }, requestError);
-            }, requestError);
-        });
+                    this.render();
+                });
 
-        this.updateHTML();
+            });
+
+        });
+    }
+
+    usePreviousWeather(previousWeatherTime) {
+        return previousWeatherTime && Date.now() - previousWeatherTime <= this.refreshEvery;
     }
 
     isAvailable() {
         return this.geolocationAvailable;
-    }
-
-    formatDate(dateString) {
-        const date = new Date(dateString);
-        if (isToday(date)) return 'Today';
-        if (isTomorrow(date)) return 'Tomorrow';
-        return `${DAYS[date.getDay()]} ${date.getDate()}`;
     }
 
     formatTemp(temp) {
@@ -133,7 +97,7 @@ export default class Weather {
         
         const date = document.createElement('div');
         date.className = 'weather date';
-        date.textContent = this.formatDate(day.applicable_date);
+        date.textContent = formatDate(day.applicable_date);
 
         const state = document.createElement('div');
         state.className = 'weather state';
@@ -161,22 +125,31 @@ export default class Weather {
         return weatherBox;
     }
 
-    updateHTML(hover = false) {
+    renderWeatherClock() {
         if (this.weatherData) {
-            // const boxes = this.weatherData.consolidated_weather.map(day => this.buildWeatherBox(day));
-            this.newElement.innerHTML = '';
-            
-            // if (hover)
-            //     boxes.forEach(box => this.weatherElement.appendChild(box));
-            // else 
-            //     this.weatherElement.appendChild(boxes[0]);
-            
+            this.weatherElement.innerHTML = '';
+
             const location = document.createElement('div');
             location.className = 'weather location';
             location.textContent = this.weatherData.title;
 
-            this.newElement.appendChild(this.buildWeatherBox(this.weatherData.consolidated_weather[0]));
-            this.newElement.appendChild(location);
+            this.weatherElement.appendChild(this.buildWeatherBox(this.weatherData.consolidated_weather[0]));
+            this.weatherElement.appendChild(location);
+        } else {
+            // render placeholder
+        }
+    }
+
+    renderWeatherOverlay() {
+        if (this.weatherData) {
+            // detailed weather in overlay
+        }
+    }
+
+    render() {
+        if (this.enabled) {
+            this.renderWeatherClock();
+            this.renderWeatherOverlay();
         }
     }
 }

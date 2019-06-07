@@ -29,6 +29,7 @@ export default class EditSettings {
 
     renderInput(setting, detail) {
         const input = document.createElement('div');
+        input.className = 'input';
 
         const onChange = (value) => setSetting(setting, value);
 
@@ -61,6 +62,7 @@ export default class EditSettings {
     render() {
         let prevTitle = '';
         const container = document.createElement('div');
+        container.className = 'settings-container';
         Object.entries(details).forEach(([setting, detail]) => {
             if (detail.title !== prevTitle) {
                 container.appendChild(this.renderTitle(detail));
