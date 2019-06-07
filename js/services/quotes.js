@@ -19,7 +19,9 @@ export const getQuoteOfTheDay = async (callback) => {
     };
 
     // cache for six hours
-    if (lastRequest && Date.now() - lastRequest > minsToMillis(600)) {
+    if (lastRequest && Date.now() - lastRequest <= minsToMillis(600)) {
+        useCachedQuote();
+    } else {
         get(QUOTE_URL, (request) => {
             const response = JSON.parse(request.response);
             const quote = response.contents.quotes[0];
@@ -27,7 +29,5 @@ export const getQuoteOfTheDay = async (callback) => {
             storage.set(LAST_RETRIEVED_KEY, Date.now());
             callback(quote);
         }, useCachedQuote);
-    } else {
-        useCachedQuote();
     }
 };
