@@ -23,7 +23,7 @@
 
 .search-bar .engine-name {
     display: flex;
-    color: white;
+    color: var(--font-color-main);
     align-self: stretch;
     align-items: center;
     line-height: 100%;
@@ -62,7 +62,7 @@
     padding: 0.5rem 0 0.5rem 0.5rem;
     height: 100%;
     width: 100%;
-    color: white;
+    color: var(--font-color-main);
     font-size: 1.25rem;
     /* font-weight: lighter; */
 }
@@ -79,8 +79,8 @@
 
 ::placeholder, .search-bar button svg {
     opacity: 0.6;
-    color: white;
-    fill: white;
+    color: var(--font-color-main);
+    fill: var(--font-color-main);
     font-weight: lighter;
 }
 
@@ -100,7 +100,7 @@
 
 .search-bar .dropdown-row {
     width: 100%;
-    color: #ddd;
+    color: var(--font-color-accent);
     padding: 0.25rem 10px;
     display: flex;
 }
@@ -122,11 +122,11 @@
 }
 
 .search-bar .dropdown-row.selected-row {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--background-color-highlight);
 }
 
 .search-bar .dropdown-row.selected-row .row-content {
-    color: white;
+    color: var(--font-color-main);
 }
 
 .search-bar .dropdown-row .icon {

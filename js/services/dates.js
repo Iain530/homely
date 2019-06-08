@@ -34,4 +34,4 @@ export const formatDate = (dateString) => {
     if (isToday(date)) return 'Today';
     if (isTomorrow(date)) return 'Tomorrow';
     return `${DAYS[date.getDay()]} ${date.getDate()}`;
-}
+};

@@ -91,8 +91,9 @@ export default class Dropdown {
         
         if (elements.length > 0) {
             this.show();
-            if (this.selected === -1 || this.rows[this.selected].disableAutocomplete)
+            if (this.selected === -1 || this.rows[this.selected].disableAutocomplete) {
                 this.searchBoxElement.value = this.query;
+            }
             else
                 this.showAutocompletion(this.rows[this.selected]);
         } else {

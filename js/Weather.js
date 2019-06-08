@@ -39,7 +39,8 @@ export default class Weather {
             return;
         }
 
-        addOverlay('weather-container', 'weather-overlay');
+        // TODO: enable overlay + cursor pointer in css
+        // addOverlay('weather-container', 'weather-overlay');
 
         this.geolocationAvailable = 'geolocation' in navigator;
         if (!this.geolocationAvailable) return;
@@ -109,15 +110,15 @@ export default class Weather {
         temp.className = 'weather temp';
         temp.textContent = this.formatTemp(day.the_temp);
 
-        state.appendChild(stateIcon);
         state.appendChild(temp);
+        state.appendChild(stateIcon);
 
         // weatherBox.appendChild(date);
         weatherBox.appendChild(state);
         // weatherBox.appendChild(temp);
 
         const { section, blurContent } = buildBlurSection();
-        blurContent.className += ' no-pad';
+        // blurContent.className += ' no-pad';
         blurContent.appendChild(weatherBox);
 
         // section.className += ' no-margin';
@@ -129,12 +130,12 @@ export default class Weather {
         if (this.weatherData) {
             this.weatherElement.innerHTML = '';
 
-            const location = document.createElement('div');
-            location.className = 'weather location';
-            location.textContent = this.weatherData.title;
+            // const location = document.createElement('div');
+            // location.className = 'weather location';
+            // location.textContent = this.weatherData.title;
 
             this.weatherElement.appendChild(this.buildWeatherBox(this.weatherData.consolidated_weather[0]));
-            this.weatherElement.appendChild(location);
+            // this.weatherElement.appendChild(location);
         } else {
             // render placeholder
         }

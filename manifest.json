@@ -4,7 +4,7 @@
     "name": "Homely",
     "version": "1.0",
 
-    "description": "Customised home page.",
+    "description": "Customised new tab page.",
 
     "icons": {
         "64": "icons/fireplace.png"
@@ -17,8 +17,15 @@
         "tabs",
         "storage",
         "https://www.metaweather.com/*",
-        "https://suggestqueries.google.com/*"
+        "https://suggestqueries.google.com/*",
+        "https://besticon-demo.herokuapp.com/*"
     ],
+
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "homely@iaincattermole"
+        }
+    },
 
     "chrome_url_overrides": {
         "newtab": "newtab.html"

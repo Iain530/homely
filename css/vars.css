@@ -1,0 +1,8 @@
+:root {
+    --background-color-main: #333333;
+    --background-color-accent: #000000;
+    --background-color-highlight: rgba(255, 255, 255, 0.1);
+
+    --font-color-main: white;
+    --font-color-accent: #ddd;
+}

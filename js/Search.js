@@ -234,16 +234,19 @@ export default class Search {
         this.currentEngine = engine;
         const query = this.searchBoxElement.value;
         const split = query.split(' ');
+
         if (split.length > 1) {
             this.searchBoxElement.value = split.slice(0, split.length-1).join(' ');
         } else {
             this.searchBoxElement.value = '';
+            this.dropdown.query = '';
         }
+
         this.searchIconElement.src = this.currentEngine.favIconUrl;
         if (this.currentEngine.isDefault) {
             this.searchEngineNameElement.parentElement.style = 'display: none';
         } else {
-            this.searchEngineNameElement.innerHTML = this.currentEngine.name;
+            this.searchEngineNameElement.textContent = this.currentEngine.name;
             this.searchEngineNameElement.parentElement.style = '';
         }
         this.suggested = null;

@@ -17,7 +17,7 @@ export const createElement = (tag, classes, children, attrs) => {
 
 export const buildBlurSection = () => {
     const blurBg = createElement('div', ['blur-background']);
-    const blurColor = createElement('div', ['blur-color', 'light']);
+    const blurColor = createElement('div', ['blur-color', 'accent']);
     const blurContent = createElement('div', ['blur-content']);
 
     const blur = createElement('div', ['blur'], [blurBg, blurColor, blurContent]);

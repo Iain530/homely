@@ -1,4 +1,5 @@
 .bar {
+    color: var(--font-color-main);
     position: fixed;
     display: flex;
     justify-content: space-between;
@@ -75,11 +76,11 @@
     transition: 0.25s ease-in;
     border-radius: 0.75rem;
     font-size: 0.9em;
-    color: #fff;
+    color: var(--font-color-main);
 }
 
 .overlay a {
-    color: #ddd;
+    color: var(--font-color-accent);
 }
 
 .overlay img {

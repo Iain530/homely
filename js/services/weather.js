@@ -11,7 +11,7 @@ export const iconURL = (state) => {
 
 export const getLocationByLattLong = ({
     latt,
-    long
+    long,
 }, callback, error = null) => {
     const url = `${LOCATION_URL}?lattlong=${latt},${long}`;
     get(url, callback, error);

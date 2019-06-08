@@ -9,11 +9,12 @@ const defaultSettings = {
     googleAutocompleteEnabled: true,
     topSitesEnabled: true,
     topSitesRows: 2,
+    bookmarksEnabled: false,
     weatherEnabled: true,
     backgroundImagesEnabled: true,
     clockEnabled: true,
     clockHour12: false,
-    quoteEnabled: false,
+    quoteEnabled: true,
 };
 
 export const details = {
@@ -37,6 +38,11 @@ export const details = {
     //     description: 'Number of rows to display',
     //     type: 'int',
     // },
+    bookmarksEnabled: {
+        title: 'Bookmarks',
+        description: 'Show links to your bookmarks. Place bookmarks in a folder named "Homely" to make them appear. This feature uses a third party service for retrieving favicons as this is not yet support natively.',
+        type: 'boolean',
+    },
     clockEnabled: {
         title: 'Clock',
         description: 'Display a digital clock with the current date and time',

@@ -35,8 +35,7 @@ export default class Quote {
                 const quoteText = createElement('span', ['quote-text'], [], {textContent: '"' + this.quote.quote + '"'});
                 const author = createElement('span', ['quote-author'], [], {textContent: ' - ' + this.quote.author});
 
-                this.quoteElement.appendChild(quoteText);
-                this.quoteElement.appendChild(author);
+                this.quoteElement.appendChild(createElement('div', [], [quoteText, author]));
             } else {
                 // render placeholder
             }

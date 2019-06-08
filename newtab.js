@@ -9,37 +9,30 @@ import Quote from './js/Quote.js';
 import { addOverlay } from './js/services/overlay.js';
 import { loadSettings } from './js/services/settings.js';
 
-const loadContent = async () => {
-    const clock = new Clock();
+const loadContent = async () => {   
+    // eslint-disable-next-line no-unused-vars
     const search = new Search();
-    const topSites = new TopSites();
-    const bookmarks = new Bookmarks();
-    const weather = new Weather();
-    const editSettings = new EditSettings();
-    const quote = new Quote();
+
+    const components = [
+        new Clock(),
+        new TopSites(),
+        new Bookmarks(),
+        new Weather(),
+        new Quote(),
+        new EditSettings(),
+    ];
+
+    components.forEach((component) => {
+        component.initialised.then(() => component.render());
+    });
 
     const settings = await loadSettings();
-
     if (!settings.backgroundImagesEnabled)
         removeBackgroundImages();
 
-    await Promise.all([
-        clock.initialised,
-        search.initialised,
-        topSites.initialised,
-        bookmarks.initialised,
-        weather.initialised,
-        editSettings.initialised,
-        quote.initialised,
-    ]);
-
-    quote.render();
-    clock.render();
-    topSites.render();
-    editSettings.render();
-
     addOverlay('info-button', 'info-overlay');
 };
+
 
 const removeBackgroundImages = () => {
     const link = document.createElement('link');
@@ -49,6 +42,7 @@ const removeBackgroundImages = () => {
     const head = document.getElementById('head');
     head.appendChild(link);
 };
+
 
 window.addEventListener('DOMContentLoaded', () => {
     loadContent();

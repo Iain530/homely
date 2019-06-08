@@ -47,9 +47,9 @@ export default class Clock {
             this.timeElement.textContent = splitTime[0];
             this.timeElement.appendChild(createElement('span', [], null, {textContent: ' ' + splitTime[1].toUpperCase()}));
         } else {
-            this.timeElement.innerHTML = timeString;
+            this.timeElement.textContent = timeString;
         }
 
-        this.dateElement.innerHTML = time.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        this.dateElement.textContent = time.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     }
 }

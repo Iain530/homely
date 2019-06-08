@@ -35,4 +35,3 @@ export const setLocalStorage = (keys) => {
 export const getLocalStorage = async (keys) => {
     return local.get(keys);
 };
-

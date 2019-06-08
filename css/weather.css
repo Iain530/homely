@@ -1,60 +1,8 @@
-/* .weather-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    position: absolute;
-    bottom: 0rem;
-    left: 1rem;
-}
-
-.weather-container .section:first-of-type {
-    border-top-left-radius: 0.75rem;
-    border-bottom-left-radius: 0.75rem;
-    border-left: 2px solid #dadada36;
-}
-
-.weather-container .section:last-of-type {
-    border-top-right-radius: 0.75rem;
-    border-bottom-right-radius: 0.75rem;
-    border-right: 2px solid #dadada36;
-}
-
-.weather-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0.5rem 0.5rem 0.75rem;
-    width: 6.45rem;
-
-    -webkit-user-select: none;        
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-
-.weather.date {
-    margin-bottom: 0.25rem;
-}
-
-.weather-box .state, .weather-container2 .state {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.weather-box .state img {
-    height: 30px;
-    width: 30px;
-    margin-right: 5px;
-    filter: brightness(1.2);
-} */
-
 .weather-container > div {
     animation-name: fadeIn;
     animation-iteration-count: 1;
     animation-timing-function: ease-in-out;
-    animation-duration: 0.5s;
+    animation-duration: 0.2s;
     animation-fill-mode: forwards;
 }
 
@@ -62,28 +10,32 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 10rem;
+    width: 7rem;
+    text-shadow: 0px 0px 10px #000;
+    font-weight: lighter;
 }
 
-.weather-container:hover {
+/* TODO: enable when overlay active */
+/* .weather-container:hover {
     cursor: pointer;
-}
+} */
 
 .weather-container .state {
     display: flex;
     justify-content: space-around;
-    font-size: 3rem;
+    font-size: 2rem;
     margin-bottom: 0.5rem;
 }
 
 .weather-container .state img {
-    height: 4rem;
-    width: 4rem;
-    filter: drop-shadow(0 0 20px rgb(0, 0, 0));
+    height: 3rem;
+    width: 3rem;
+    /* filter: drop-shadow(0 0 10px #333333); */
 }
 
 .weather-container .location {
-    font-size: 1.25rem;
+    font-weight: normal;
+    font-size: 0.875rem;
     display: flex;
     justify-content: center;
 }

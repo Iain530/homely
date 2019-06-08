@@ -36,7 +36,7 @@ and (min-device-width: 2561px) {
 
 /* old: https://source.unsplash.com/featured/1920x1080?sky&dpr=2&auto=format&fit=crop&w=1920&h=1080&q=80&cs=tinysrgb&crop=&bg= */
 .blur-background {
-    background-color: #333;
+    background-color: var(--background-color-main);
     background-size: cover;
     overflow: hidden;
     filter: brightness(1.5) blur(12px);
@@ -55,15 +55,11 @@ and (min-device-width: 2561px) {
     z-index: 2;
 }
 
-.blur-color.light {
-    background-color: #000;
+.blur-color.accent {
+    background-color: var(--background-color-accent);
     opacity: 0.4;
 }
 
-.blur-color.dark {
-    background-color: #eee;
-    opacity: 0.8;
-}
 
 .blur-content {
     position: relative;
