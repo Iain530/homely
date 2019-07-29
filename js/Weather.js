@@ -118,12 +118,12 @@ export default class Weather {
         // weatherBox.appendChild(temp);
 
         const { section, blurContent } = buildBlurSection();
-        // blurContent.className += ' no-pad';
+        blurContent.className += ' med-pad-v';
         blurContent.appendChild(weatherBox);
 
-        // section.className += ' no-margin';
+        section.className += ' no-margin';
 
-        return weatherBox;
+        return section;
     }
 
     renderWeatherClock() {

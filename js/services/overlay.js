@@ -6,7 +6,7 @@ const buttons = {};
 const overlayElements = {};
 
 const overlay = document.getElementById('overlay');
-const background = document.getElementById('page-bg');
+const background = document.getElementById('page-bg-blur');
 
 background.addEventListener('click', () => hideOverlay());
 document.addEventListener('keydown', (e) => {
@@ -18,11 +18,15 @@ document.addEventListener('keydown', (e) => {
 const showOverlay = () => {
     overlay.style.visibility = 'visible';
     overlay.style.opacity = '1';
+    background.style.visibility = 'visible';
+    background.style.opacity = '1';
 };
 
 const hideOverlay = () => {
     overlay.style.visibility = 'hidden';
     overlay.style.opacity = '0';
+    background.style.visibility = 'hidden';
+    background.style.opacity = '0';
     hideAll();
 };
 

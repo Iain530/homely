@@ -76,6 +76,11 @@ and (min-device-width: 2561px) {
     padding-bottom: 0.25rem;
 }
 
+.blur-content.med-pad-v {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
 .blur-content.small-pad-h {
     padding-left: 1.25rem;
     padding-right: 1.25rem;

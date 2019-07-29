@@ -33,7 +33,8 @@ img {
 
 @media screen
 and (max-device-width: 1280px) {
-    .page-bg {
+    .page-bg,
+    .page-bg-blur {
         background: url('https://source.unsplash.com/collection/827743/1280x720/daily') no-repeat center center fixed;
     }
 }
@@ -41,14 +42,16 @@ and (max-device-width: 1280px) {
 
 @media screen
 and (min-device-width: 1281px) {
-    .page-bg {
+    .page-bg,
+    .page-bg-blur {
         background: url('https://source.unsplash.com/collection/827743/1920x1080/daily') no-repeat center center fixed;
     }
 }
 
 @media screen
 and (min-device-width: 1921px) {
-    .page-bg {
+    .page-bg,
+    .page-bg-blur {
         background: url('https://source.unsplash.com/collection/827743/2560x1440/daily') no-repeat center center fixed;
     }
 }
@@ -56,7 +59,8 @@ and (min-device-width: 1921px) {
 
 @media screen
 and (min-device-width: 2561px) {
-    .page-bg {
+    .page-bg,
+    .page-bg-blur {
         background: url('https://source.unsplash.com/collection/827743/3840x2160/daily') no-repeat center center fixed;
     }
 }
@@ -66,17 +70,29 @@ and (min-device-width: 2561px) {
 } */
 
 .page-bg {
+    animation-name: fadeIn;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.page-bg,
+.page-bg-blur {
     background-color: var(--background-color-main);
     background-size: cover;
     position: fixed;
     top: 0;
     width: 100%;
     height: 100%;
-    animation-name: fadeIn;
-    animation-iteration-count: 1;
-    animation-timing-function: ease-in-out;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
+}
+
+.page-bg-blur {
+    filter: blur(5px) brightness(.8);
+    transform: scale(1.05, 1.05);
+    transition: 1s;
+    opacity: 0;
+    visibility: hidden;
 }
 
 @keyframes fadeIn {

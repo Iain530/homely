@@ -1,6 +1,6 @@
 import { getQuoteOfTheDay } from './services/quotes.js';
 import { loadSettings } from './services/settings.js';
-import { createElement } from './utils.js';
+import { buildBlurSection, createElement } from './utils.js';
 
 
 export default class Quote {
@@ -32,10 +32,20 @@ export default class Quote {
         if (this.enabled) {
             if (this.quote) {
                 this.quoteElement.innerHTML = '';
+
                 const quoteText = createElement('span', ['quote-text'], [], {textContent: '"' + this.quote.quote + '"'});
                 const author = createElement('span', ['quote-author'], [], {textContent: ' - ' + this.quote.author});
 
-                this.quoteElement.appendChild(createElement('div', [], [quoteText, author]));
+                const {
+                    section,
+                    blurContent
+                } = buildBlurSection();
+                blurContent.className += ' med-pad-v';
+                section.className += ' no-margin';
+                
+                blurContent.appendChild(createElement('div', [], [quoteText, author]));
+                
+                this.quoteElement.appendChild(section);
             } else {
                 // render placeholder
             }

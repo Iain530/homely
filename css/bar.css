@@ -5,7 +5,7 @@
     justify-content: space-between;
     align-items: flex-end;
     width: 100%;
-    z-index: 10;
+    /* z-index: 10; */
 }
 
 .bar.bottom {
@@ -67,9 +67,10 @@
 .overlay {
     position: absolute;
     z-index: 100;
-    top: 2%;
+    top: 0rem;
     left: 0;
-    height: 88%;
+    bottom: 0rem;
+    /* height: 88%; */
     width: 100%;
     visibility: hidden;
     opacity: 0;
@@ -77,6 +78,10 @@
     border-radius: 0.75rem;
     font-size: 0.9em;
     color: var(--font-color-main);
+}
+
+.overlay.section.shadow-always {
+    /* box-shadow: 0px 1px 50px rgba(50, 50, 50, 1); */
 }
 
 .overlay a {

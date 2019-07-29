@@ -21,7 +21,7 @@ export const buildBlurSection = () => {
     const blurContent = createElement('div', ['blur-content']);
 
     const blur = createElement('div', ['blur'], [blurBg, blurColor, blurContent]);
-    const section = createElement('div', ['section'], [blur]);
+    const section = createElement('div', ['section', 'shadow'], [blur]);
     
     // return the full section and a reference to the content div
     return {
