@@ -45,7 +45,7 @@ export default class Quote {
                 
                 blurContent.appendChild(createElement('div', [], [quoteText, author]));
                 
-                this.quoteElement.appendChild(section);
+                this.quoteElement.appendChild(createElement('div', [], [quoteText, author]));
             } else {
                 // render placeholder
             }

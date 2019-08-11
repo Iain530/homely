@@ -19,7 +19,7 @@ const showOverlay = () => {
     overlay.style.visibility = 'visible';
     overlay.style.opacity = '1';
     background.style.visibility = 'visible';
-    background.style.opacity = '1';
+    background.style.opacity = '0'; // TODO: show background?
 };
 
 const hideOverlay = () => {

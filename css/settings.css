@@ -24,3 +24,14 @@
 .settings.row:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
+
+.settings.row div.input input[type=color] {
+    width: 2.5rem;
+    padding: 0;
+    cursor: pointer;
+}
+
+.settings.row div.input input[type=number] {
+    width: 2.5rem;
+    color: black;
+}

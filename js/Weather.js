@@ -123,7 +123,7 @@ export default class Weather {
 
         section.className += ' no-margin';
 
-        return section;
+        return weatherBox;
     }
 
     renderWeatherClock() {
@@ -135,6 +135,7 @@ export default class Weather {
             // location.textContent = this.weatherData.title;
 
             this.weatherElement.appendChild(this.buildWeatherBox(this.weatherData.consolidated_weather[0]));
+            this.weatherElement.style.visibility = 'visible';
             // this.weatherElement.appendChild(location);
         } else {
             // render placeholder

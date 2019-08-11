@@ -54,7 +54,23 @@ export default class EditSettings {
 
             input.appendChild(label);
         } else if (detail.type === 'int') {
-            //
+            const numberInput = document.createElement('input');
+            numberInput.type = 'number';
+            numberInput.min = '1';
+            numberInput.max = '3';
+            numberInput.value = this.settings.topSitesRows.toString();
+
+            numberInput.addEventListener('change', () => onChange(parseInt(numberInput.value)));
+            numberInput.addEventListener('change', () => console.log(numberInput.value));
+
+            input.appendChild(numberInput);
+        } else if (detail.type === 'color') {
+            const colorPicker = document.createElement('input');
+            colorPicker.type = 'color';
+            colorPicker.value = this.settings.backgroundColor;
+
+            input.appendChild(colorPicker);
+            colorPicker.addEventListener('change', () => onChange(colorPicker.value));
         }
         return input;
     }

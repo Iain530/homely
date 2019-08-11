@@ -1,13 +1,15 @@
 .quote {
     text-align: center;
     font-weight: lighter;
-    text-shadow: 0px 0px 5px #000;
+    text-shadow: 0px 1px 2px #000;
     max-width: 40rem;
+    background-color: var(--background-color-transparent);
+    border-radius: var(--border-radius-m);
+    padding: .5rem 0.25rem;
+    user-select: all;
 }
 
 .quote > div {
-    /* background-color:  */
-
     animation-name: fadeIn;
     animation-iteration-count: 1;
     animation-timing-function: ease-in-out;

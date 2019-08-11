@@ -38,21 +38,21 @@
     display: flex;
     align-items: center;
     margin: 0 0.5rem;
-    text-shadow: 0 0 3px #555;
+    /* text-shadow: 0 0 3px #555; */
     height: 100%;
     transition: 0.2s;
-    opacity: 0.6;
+    opacity: 0.8;
     /* transition: 0.9s; */
 }
 
 .bar .row .row-element .hover-button img {
     height: 25px;
-    widows: 25px;
-    filter: drop-shadow(0 0 2px #555);
+    width: 25px;
+    filter: drop-shadow(0 0 2px #333);
 }
 
 .bar .row .row-element .hover-button:hover {
-    opacity: 0.8;
+    opacity: 1;
     cursor: pointer;
 }
 

@@ -12,9 +12,10 @@ const defaultSettings = {
     bookmarksEnabled: false,
     weatherEnabled: true,
     backgroundImagesEnabled: true,
+    backgroundColor: '#333333',
     clockEnabled: true,
     clockHour12: false,
-    quoteEnabled: true,
+    quoteEnabled: false,
 };
 
 export const details = {
@@ -33,11 +34,11 @@ export const details = {
         description: 'Show links to your most visited sites',
         type: 'boolean',
     },
-    // topSitesRows: {
-    //     title: 'Top Sites',
-    //     description: 'Number of rows to display',
-    //     type: 'int',
-    // },
+    topSitesRows: {
+        title: 'Top Sites',
+        description: 'Number of rows to display (1-3)',
+        type: 'int',
+    },
     bookmarksEnabled: {
         title: 'Bookmarks',
         description: 'Show links to your bookmarks. Place bookmarks in a folder named "Homely" to make them appear. This feature uses a third party service for retrieving favicons as this is not yet support natively.',
@@ -64,9 +65,14 @@ export const details = {
         type: 'boolean',
     },
     backgroundImagesEnabled: {
-        title: 'Background Image',
+        title: 'Background',
         description: 'Show a daily background image',
         type: 'boolean',
+    },
+    backgroundColor: {
+        title: 'Background',
+        description: 'Background colour (used only by quote and weather if background image is enabled)',
+        type: 'color',
     },
 };
 

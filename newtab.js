@@ -5,6 +5,7 @@ import Clock from './js/Clock.js';
 import Weather from './js/Weather.js';
 import EditSettings from './js/EditSettings.js';
 import Quote from './js/Quote.js';
+import Background from './js/Background.js';
 
 import { addOverlay } from './js/services/overlay.js';
 import { loadSettings } from './js/services/settings.js';
@@ -20,6 +21,7 @@ const loadContent = async () => {
         new Weather(),
         new Quote(),
         new EditSettings(),
+        new Background(),
     ];
 
     components.forEach((component) => {
