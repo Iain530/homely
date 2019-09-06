@@ -23,15 +23,18 @@
 }
 
 /* TODO: enable when overlay active */
-/* .weather-container:hover {
+.weather-container:hover {
     cursor: pointer;
-} */
+}
 
 .weather-container .state {
+    font-size: 1.25rem;
+}
+
+.weather-container .state, #weather-overlay .state {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    font-size: 1.25rem;
     /* font-weight: bolder; */
 }
 
@@ -48,4 +51,42 @@
     font-size: 0.875rem;
     display: flex;
     justify-content: center;
+}
+
+#weather-overlay .weather-row:first-of-type {
+    border-top: var(--border-separator);
+}
+
+#weather-overlay .weather-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: var(--border-separator);
+    padding: 0.5rem 0;
+    font-size: 1.125rem;
+}
+
+#weather-overlay .state img {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-left: 0.75rem;
+    filter: brightness(1.5);
+}
+
+#weather-overlay .state {
+    font-size: 1.125rem;
+}
+
+#weather-overlay .temp {
+    width: 7rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+#weather-overlay .temp div {
+    width: 2.4rem;
+    text-align: end;
+}
+
+#weather-overlay .faded {
+    color: var(--font-color-faded);
 }

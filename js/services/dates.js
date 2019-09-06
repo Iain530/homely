@@ -1,13 +1,13 @@
 const isEqual = (d1, d2) => d1.getTime() === d2.getTime();
 
 const DAYS = [
-    'Sun',
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
 ];
 
 
@@ -35,3 +35,10 @@ export const formatDate = (dateString) => {
     if (isTomorrow(date)) return 'Tomorrow';
     return `${DAYS[date.getDay()]} ${date.getDate()}`;
 };
+
+export const formatDay = (dateString) => {
+    const date = new Date(dateString);
+    if (isToday(date)) return 'Today';
+    if (isTomorrow(date)) return 'Tomorrow';
+    return DAYS[date.getDay()];
+}

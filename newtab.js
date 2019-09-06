@@ -33,6 +33,9 @@ const loadContent = async () => {
         removeBackgroundImages();
 
     addOverlay('info-button', 'info-overlay');
+
+    // fade in after load
+    document.querySelectorAll('.page-body')[0].style.opacity = '1';
 };
 
 

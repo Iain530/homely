@@ -1,6 +1,9 @@
 import { buildBlurSection } from './utils.js';
 import { loadSettings } from './services/settings.js';
+import Storage from './services/storage.js';
 import { get } from './services/requests.js';
+
+const storage = new Storage('BOOKMARKS');
 
 // eslint-disable-next-line no-undef
 const api = browser.bookmarks;

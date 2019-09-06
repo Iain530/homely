@@ -1,6 +1,6 @@
 export const minsToMillis = mins => mins * 60000;
 
-export const createElement = (tag, classes, children, attrs) => {
+export const createElement = (tag, classes = [], children = [], attrs = {}) => {
     const ele = document.createElement(tag);
     ele.className = classes.join(' ');
 

@@ -5,7 +5,9 @@
     --background-color-highlight: rgba(255, 255, 255, 0.1);
 
     --font-color-main: white;
+    --font-color-faded: #dddddd88;
     --font-color-accent: #ddd;
 
     --border-radius-m: 0.75rem;
+    --border-separator: 1px solid #e2e2e233;
 }

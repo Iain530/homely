@@ -1,7 +1,7 @@
 import { minsToMillis, createElement, buildBlurSection } from './utils.js';
 
 import Storage from './services/storage.js';
-import { formatDate } from './services/dates.js';
+import { formatDate, formatDay } from './services/dates.js';
 import { loadSettings } from './services/settings.js';
 import { addOverlay } from './services/overlay.js';
 import { 
@@ -40,7 +40,7 @@ export default class Weather {
         }
 
         // TODO: enable overlay + cursor pointer in css
-        // addOverlay('weather-container', 'weather-overlay');
+        addOverlay('weather-container', 'weather-overlay');
 
         this.geolocationAvailable = 'geolocation' in navigator;
         if (!this.geolocationAvailable) return;
@@ -54,7 +54,6 @@ export default class Weather {
             this.render();
             return;
         }
-
 
         geolocation.getCurrentPosition((position) => {
             this.position = position;
@@ -117,11 +116,11 @@ export default class Weather {
         weatherBox.appendChild(state);
         // weatherBox.appendChild(temp);
 
-        const { section, blurContent } = buildBlurSection();
-        blurContent.className += ' med-pad-v';
-        blurContent.appendChild(weatherBox);
+        // const { section, blurContent } = buildBlurSection();
+        // blurContent.className += ' med-pad-v';
+        // blurContent.appendChild(weatherBox);
 
-        section.className += ' no-margin';
+        // section.className += ' no-margin';
 
         return weatherBox;
     }
@@ -144,7 +143,61 @@ export default class Weather {
 
     renderWeatherOverlay() {
         if (this.weatherData) {
-            // detailed weather in overlay
+            this.weatherOverlay.innerHTML = '';
+
+            console.log(this.weatherData);
+
+            const title = this.weatherData.title;
+            const parentTitle = this.weatherData.parent.title;
+
+            const h1 = createElement('h1');
+            h1.innerHTML = `${title}, ${parentTitle}`;
+            this.weatherOverlay.appendChild(h1);
+
+            const today = this.weatherData.consolidated_weather[0];
+            const humidity = createElement('div', ['humidity'], [], {textContent: `Humidity: ${today.humidity}%`});
+
+            this.weatherOverlay.appendChild(humidity);
+
+            const weatherRows = this.weatherData.consolidated_weather.slice(1).map((day) => {
+                
+                const date = createElement('div', ['date'], [], {textContent: formatDay(day.applicable_date)});
+
+                const temperature = createElement('div', ['temp'], [
+                    createElement('div', ['faded'], [], {textContent: this.formatTemp(day.min_temp)}),
+                    createElement('div', [],        [], {textContent: this.formatTemp(day.the_temp)}),
+                    createElement('div', ['faded'], [], {textContent: this.formatTemp(day.max_temp)}),
+                ]);
+                const stateIcon = createElement('img', [], [], {src: iconURL(day.weather_state_abbr)});
+
+                const state = createElement('div', ['state'], [stateIcon, temperature]);
+
+
+                // state.appendChild(temp);
+                // state.appendChild(stateIcon);
+
+                // const state = createElement('div', ['state'], [])
+                // const date = document.createElement('div');
+                // date.className = 'weather date';
+                // date.textContent = formatDate(day.applicable_date);
+
+                const row = createElement('div', ['weather-row'], [date, state]);
+
+                // const state = document.createElement('div');
+                // state.className = 'weather state';
+
+                // const stateIcon = document.createElement('img');
+                // stateIcon.src = iconURL(day.weather_state_abbr);
+
+                // const temp = document.createElement('div');
+                // temp.className = 'weather temp';
+                // temp.textContent = this.formatTemp(day.the_temp);
+
+
+                return row;
+            });
+
+            weatherRows.forEach(row => this.weatherOverlay.appendChild(row));
         }
     }
 

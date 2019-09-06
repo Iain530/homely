@@ -1,0 +1,45 @@
+.overlay {
+    position: absolute;
+    z-index: 100;
+    top: 0rem;
+    left: 0;
+    /* max-height: 90vh; */
+    /* overflow: auto; */
+    bottom: 0rem;
+    /* height: 88%; */
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.25s ease-in;
+    border-radius: 0.75rem;
+    font-size: 0.9em;
+    color: var(--font-color-main);
+}
+
+.overlay .blur-content {
+    /* display: flex; */
+    /* align-items: center; */
+}
+
+.overlay.section.shadow-always {
+    /* box-shadow: 0px 1px 50px rgba(50, 50, 50, 1); */
+}
+
+.overlay a {
+    color: var(--font-color-accent);
+}
+
+.overlay h1 img {
+    margin-right: 1rem;
+}
+
+.overlay>.blur {
+    height: 100%;
+    /* width: 100%; */
+}
+
+.overlay .blur-content {
+    padding-top: 0;
+    max-height: 100%;
+    overflow: auto;
+}

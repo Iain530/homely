@@ -125,7 +125,7 @@ h1, h2 {
 }
 
 h2 {
-    border-bottom: 1px solid #e2e2e233;
+    border-bottom: var(--border-separator);
 }
 
 h3, h4, h5 {
@@ -133,8 +133,11 @@ h3, h4, h5 {
 }
 
 .page-body {
+    /* visibility: hidden; */
     position: relative;
     display: flex;
+    opacity: 0;
+    transition: 1s;
     flex-direction: column;
     color: var(--font-color-main);
     /* justify-content: center; */
@@ -144,11 +147,11 @@ h3, h4, h5 {
     max-width: 40rem;
     min-width: 20rem;
     margin: auto;
-    animation-name: fadeIn;
+    /* animation-name: fadeIn;
     animation-iteration-count: 1;
     animation-timing-function: ease-in-out;
     animation-duration: 0.4s;
-    animation-fill-mode: forwards;
+    animation-fill-mode: forwards; */
 }
 
 .horizontal {

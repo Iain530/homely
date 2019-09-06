@@ -26,6 +26,11 @@ export default class Storage {
         const values = await getLocalStorage(withUniqueKey);
         return values[withUniqueKey] || null;
     }
+
+    async remove(keys) {
+        const withUniqueKey = Array.isArray(keys) ? keys.map(k => this.getUniqueKey(k)) : this.getUniqueKey(keys);
+        return local.remove(withUniqueKey);
+    }
 }
 
 export const setLocalStorage = (keys) => {
